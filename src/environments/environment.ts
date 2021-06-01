@@ -7,7 +7,7 @@ export const Env = {
   JWT_API_SECRET_KEY: process.env.JWT_API_SECRET_KEY,
   CRYPTION_SECRET_KEY: process.env.CRYPTION_SECRET_KEY,
   CRYPTION_API_KEY: process.env.CRYPTION_API_KEY,
-  MONGODB: undefined, //process.env.MONGODB,
+  MONGODB: process.env.MONGODB,
   AccessAuthTokenExpireTime: '15m',
   RefreshTokenExpireTime: '604800',
 };

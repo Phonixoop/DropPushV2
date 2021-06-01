@@ -54,4 +54,8 @@ import { RouterModule, Routes } from 'nest-router';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    console.log('MONGO STRING ', Env.MONGODB);
+  }
+}

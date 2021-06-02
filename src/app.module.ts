@@ -41,7 +41,7 @@ import { RouterModule, Routes } from 'nest-router';
       rootPath: join(__dirname, 'public'),
     }),
     MongooseModule.forRoot(
-      Env.MONGODB || 'mongodb://localhost:27017/dropdbnest',
+      Env.MONGODB,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,

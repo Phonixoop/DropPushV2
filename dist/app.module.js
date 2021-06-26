@@ -47,7 +47,7 @@ AppModule = __decorate([
             serve_static_module_1.ServeStaticModule.forRoot({
                 rootPath: path_1.join(__dirname, 'public'),
             }),
-            mongoose_1.MongooseModule.forRoot(environment_1.Env.MONGODB || 'mongodb://localhost:27017/dropdbnest', {
+            mongoose_1.MongooseModule.forRoot(environment_1.Env.MONGODB, {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
                 useCreateIndex: true,

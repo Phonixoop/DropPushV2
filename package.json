@@ -1,6 +1,6 @@
 {
     "name": "drop",
-    "bin": "main.js",
+    "bin": "src/main.ts",
     "version": "0.0.1",
     "description": "",
     "author": "Phonix",

@@ -33,7 +33,7 @@
         "@nestjs/websockets": "^7.6.17",
         "@types/cookie-parser": "^1.4.2",
         "@types/socket.io": "^3.0.2",
-        "bcrypt": "^5.0.1",
+        "bcryptjs": "^2.4.3",
         "class-validator": "^0.13.1",
         "cookie-parser": "^1.4.5",
         "cors": "^2.8.5",
@@ -92,8 +92,12 @@
         "testEnvironment": "node"
     },
     "pkg": {
-        "assets": ["public/**/*"],
-        "targets": ["node10-linux-arm64"],
+        "assets": [
+            "public/**/*"
+        ],
+        "targets": [
+            "node10-linux-arm64"
+        ],
         "outputPath": ""
     }
 }

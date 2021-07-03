@@ -11,7 +11,6 @@ const common_1 = require("@nestjs/common");
 const message_service_1 = require("./message.service");
 const message_controller_1 = require("./message.controller");
 const verifyAccessToken_mid_1 = require("../middlewares/verifyAccessToken.mid");
-const database_module_1 = require("../database/database.module");
 const user_module_1 = require("../user/user.module");
 const message_entity_1 = require("./entities/message.entity");
 const mongoose_1 = require("@nestjs/mongoose");
@@ -25,7 +24,6 @@ let MessageModule = class MessageModule {
 MessageModule = __decorate([
     common_1.Module({
         imports: [
-            database_module_1.DatabaseModule,
             user_module_1.UserModule,
             common_2.forwardRef(() => socket_module_1.SocketModule),
             mongoose_1.MongooseModule.forFeature([

@@ -7,7 +7,14 @@ import { ValidationPipe } from '@nestjs/common';
 import { Request } from 'express';
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
 
+// process.on('uncaughtException', (err) => {
+//   try {
+//     console.log('whoops! there was an error' + err);
+//     fs.writeFileSync(`${__dirname}\DropLog.txt`, err);
+//   } catch {}
+// });
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -50,4 +57,5 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT || 3000);
 }
+
 bootstrap();

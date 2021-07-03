@@ -10,7 +10,6 @@ exports.UserModule = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
 const user_controller_1 = require("./user.controller");
-const database_module_1 = require("../database/database.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_entity_1 = require("./entities/user.entity");
 const verifyCookieToken_mid_1 = require("../middlewares/verifyCookieToken.mid");
@@ -22,7 +21,6 @@ let UserModule = class UserModule {
 UserModule = __decorate([
     common_1.Module({
         imports: [
-            database_module_1.DatabaseModule,
             mongoose_1.MongooseModule.forFeature([{ name: user_entity_1.User.name, schema: user_entity_1.UserEntitySchema }]),
         ],
         controllers: [user_controller_1.UserController],

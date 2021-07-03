@@ -6,6 +6,7 @@ const cors = require('cors');
 const common_1 = require("@nestjs/common");
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.use(function (req, res, next) {

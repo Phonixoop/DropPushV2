@@ -3,7 +3,7 @@ import { SchemaTypes, Types, Document, Mongoose, Model } from 'mongoose';
 
 import { Env } from '../../environments/environment';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { Platform } from '../../platform/entities/platform.entity';
 
 @Schema({ timestamps: true })

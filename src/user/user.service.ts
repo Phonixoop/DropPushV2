@@ -15,7 +15,7 @@ import {
   UsernameOrPasswordIncorrect,
 } from './errors/error';
 import { Response } from 'express';
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 import { Env } from './../environments/environment';
 import { LoginUserInput } from './dto/login-user.input';

@@ -4,7 +4,6 @@ import { MessageController } from './message.controller';
 import { NestModule } from '@nestjs/common';
 import { VerifyAccessTokenMID } from '../middlewares/verifyAccessToken.mid';
 import { MiddlewareConsumer } from '@nestjs/common';
-import { DatabaseModule } from '../database/database.module';
 import { UserModule } from '../user/user.module';
 import { Message, MessageEntitySchema } from './entities/message.entity';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -14,7 +13,6 @@ import { forwardRef } from '@nestjs/common';
 
 @Module({
   imports: [
-    DatabaseModule,
     UserModule,
     forwardRef(() => SocketModule),
     MongooseModule.forFeature([

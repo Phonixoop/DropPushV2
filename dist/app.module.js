@@ -14,7 +14,6 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const user_module_1 = require("./user/user.module");
-const database_module_1 = require("./database/database.module");
 const serve_static_module_1 = require("@nestjs/serve-static/dist/serve-static.module");
 const path_1 = require("path");
 const mongoose_1 = require("@nestjs/mongoose");
@@ -43,7 +42,6 @@ AppModule = __decorate([
             project_module_1.ProjectModule,
             public_api_module_1.PublicApiModule,
             public_message_module_1.PublicMessageModule,
-            database_module_1.DatabaseModule,
             serve_static_module_1.ServeStaticModule.forRoot({
                 rootPath: path_1.join(__dirname, 'public'),
             }),

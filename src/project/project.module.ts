@@ -1,7 +1,7 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { ProjectController } from './project.controller';
-import { DatabaseModule } from '../database/database.module';
+
 import { MongooseModule } from '@nestjs/mongoose';
 import { Project, ProjectEntitySchema } from './entities/project.entity';
 import { MiddlewareConsumer } from '@nestjs/common';
@@ -14,7 +14,6 @@ import { VerifyAccessTokenMID } from '../middlewares/verifyAccessToken.mid';
 
 @Module({
   imports: [
-    DatabaseModule,
     UserModule,
     PlatformModule,
     MongooseModule.forFeature([

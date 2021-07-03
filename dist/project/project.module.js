@@ -10,7 +10,6 @@ exports.ProjectModule = void 0;
 const common_1 = require("@nestjs/common");
 const project_service_1 = require("./project.service");
 const project_controller_1 = require("./project.controller");
-const database_module_1 = require("../database/database.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const project_entity_1 = require("./entities/project.entity");
 const user_module_1 = require("../user/user.module");
@@ -24,7 +23,6 @@ let ProjectModule = class ProjectModule {
 ProjectModule = __decorate([
     common_1.Module({
         imports: [
-            database_module_1.DatabaseModule,
             user_module_1.UserModule,
             platform_module_1.PlatformModule,
             mongoose_1.MongooseModule.forFeature([

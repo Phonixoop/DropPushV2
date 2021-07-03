@@ -7,7 +7,7 @@ import {
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { DatabaseModule } from './database/database.module';
+
 import { ServeStaticModule } from '@nestjs/serve-static/dist/serve-static.module';
 import { join } from 'path';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -36,19 +36,16 @@ import { RouterModule, Routes } from 'nest-router';
     ProjectModule,
     PublicApiModule,
     PublicMessageModule,
-    DatabaseModule,
+
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, 'public'),
     }),
-    MongooseModule.forRoot(
-      Env.MONGODB,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-        useFindAndModify: true,
-      },
-    ),
+    MongooseModule.forRoot(Env.MONGODB, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: true,
+    }),
   ],
 
   controllers: [AppController],

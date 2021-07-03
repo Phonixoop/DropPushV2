@@ -3,7 +3,7 @@ import { SchemaTypes, Types, Document, Mongoose, Model } from 'mongoose';
 
 import { Env } from '../../environments/environment';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { Type } from '@nestjs/common';
 import { Project } from '../../project/entities/project.entity';
 import { User } from '../../user/entities/user.entity';

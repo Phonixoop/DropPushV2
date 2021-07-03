@@ -11,7 +11,6 @@ const common_1 = require("@nestjs/common");
 const platform_service_1 = require("./platform.service");
 const platform_controller_1 = require("./platform.controller");
 const platform_entity_1 = require("./entities/platform.entity");
-const database_module_1 = require("../database/database.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_module_1 = require("../user/user.module");
 const verifyAccessToken_mid_1 = require("../middlewares/verifyAccessToken.mid");
@@ -23,7 +22,6 @@ let PlatformModule = class PlatformModule {
 PlatformModule = __decorate([
     common_1.Module({
         imports: [
-            database_module_1.DatabaseModule,
             user_module_1.UserModule,
             mongoose_1.MongooseModule.forFeature([
                 { name: platform_entity_1.Platform.name, schema: platform_entity_1.PlatformEntitySchema },

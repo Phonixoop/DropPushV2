@@ -24,9 +24,11 @@ const throttler_1 = require("@nestjs/throttler");
 const public_api_module_1 = require("./public-api/public-api.module");
 const environment_1 = require("./environments/environment");
 const public_message_module_1 = require("./public-message/public-message.module");
+require('dotenv').config();
 let AppModule = class AppModule {
     constructor() {
         console.log('MONGO STRING ', environment_1.Env.MONGODB);
+        console.log('MONGO STRING ', process.env.PORT);
     }
 };
 AppModule = __decorate([

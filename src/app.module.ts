@@ -23,6 +23,7 @@ import { PublicMessageModule } from './public-message/public-message.module';
 
 import { RouterModule, Routes } from 'nest-router';
 
+require('dotenv').config();
 @Module({
   imports: [
     ThrottlerModule.forRoot({
@@ -54,5 +55,6 @@ import { RouterModule, Routes } from 'nest-router';
 export class AppModule {
   constructor() {
     console.log('MONGO STRING ', Env.MONGODB);
+    console.log('MONGO STRING ', process.env.PORT);
   }
 }

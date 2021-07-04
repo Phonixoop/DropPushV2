@@ -30,13 +30,17 @@ let PublicMessageService = class PublicMessageService {
             let msg = await this.PublicMessage.findOne({});
             let payload;
             if (msg) {
+                msg.title = input.title;
+                msg.iconUrl = input.iconUrl;
+                msg.message = input.message;
+                msg.messageId = uuid_1.v4();
+                await msg.save();
                 payload = {
-                    title: input.title,
-                    iconUrl: input.iconUrl,
-                    message: input.message,
-                    messageId: uuid_1.v4(),
+                    title: msg.title,
+                    iconUrl: msg.iconUrl,
+                    message: msg.message,
+                    messageId: msg.messageId,
                 };
-                await msg.save(payload);
             }
             else {
                 payload = {

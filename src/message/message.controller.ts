@@ -12,6 +12,7 @@ import {
 import { MessageService } from './message.service';
 import { CreateMessageInput } from './dto/create-message.input';
 import { Response, Request } from 'express';
+import { Types } from 'mongoose';
 
 @Controller('api/v1/message')
 export class MessageController {
@@ -26,6 +27,7 @@ export class MessageController {
     if (!req.body.userId) res.status(401).json({ ok: false });
 
     const result = await this.messageService.create(createMessageInput);
-    res.status(result.status).json({ ok: result.status });
+
+    res.status(result.status).json({ ok: result.ok, message: result.message });
   }
 }

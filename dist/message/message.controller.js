@@ -24,7 +24,7 @@ let MessageController = class MessageController {
         if (!req.body.userId)
             res.status(401).json({ ok: false });
         const result = await this.messageService.create(createMessageInput);
-        res.status(result.status).json({ ok: result.status });
+        res.status(result.status).json({ ok: result.ok, message: result.message });
     }
 };
 __decorate([

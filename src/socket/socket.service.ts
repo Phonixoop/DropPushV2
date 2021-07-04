@@ -40,7 +40,6 @@ export class SocketService
     this.server.use(async (socket: Socket, next) => {
       try {
         let token = socket.handshake.query.token.toString();
-
         const decoded = await Cryption.decrypt(token, Env.CRYPTION_SECRET_KEY);
 
         socket.handshake.headers.appId = decoded.data;

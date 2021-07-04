@@ -37,6 +37,7 @@ __decorate([
 ], CreateMessageInput.prototype, "message", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
+    class_validator_1.IsString(),
     __metadata("design:type", String)
 ], CreateMessageInput.prototype, "projectId", void 0);
 __decorate([

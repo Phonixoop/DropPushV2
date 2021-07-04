@@ -28,7 +28,7 @@ require('dotenv').config();
 let AppModule = class AppModule {
     constructor() {
         console.log('MONGO STRING ', environment_1.Env.MONGODB);
-        console.log('MONGO STRING ', process.env.PORT);
+        console.log('PORT ', process.env.PORT || 3000);
     }
 };
 AppModule = __decorate([

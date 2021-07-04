@@ -55,6 +55,6 @@ require('dotenv').config();
 export class AppModule {
   constructor() {
     console.log('MONGO STRING ', Env.MONGODB);
-    console.log('MONGO STRING ', process.env.PORT);
+    console.log('PORT ', process.env.PORT || 3000);
   }
 }

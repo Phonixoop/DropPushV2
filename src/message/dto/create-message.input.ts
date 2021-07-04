@@ -10,6 +10,7 @@ import {
   Validate,
   ValidateBy,
 } from 'class-validator';
+import { Types } from 'mongoose';
 import { Project } from '../../project/entities/project.entity';
 
 export class CreateMessageInput {
@@ -33,6 +34,7 @@ export class CreateMessageInput {
   message!: string;
 
   @IsNotEmpty()
+  @IsString()
   projectId!: string;
 
   @IsNotEmpty()

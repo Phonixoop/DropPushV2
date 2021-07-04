@@ -23,13 +23,18 @@ export class PublicMessageService {
       let payload;
 
       if (msg) {
+        msg.title = input.title;
+        msg.iconUrl = input.iconUrl;
+        msg.message = input.message;
+        msg.messageId = uuidv4();
+        await msg.save();
+
         payload = {
-          title: input.title,
-          iconUrl: input.iconUrl,
-          message: input.message,
-          messageId: uuidv4(),
+          title: msg.title,
+          iconUrl: msg.iconUrl,
+          message: msg.message,
+          messageId: msg.messageId,
         };
-        await msg.save(payload);
       } else {
         payload = {
           title: input.title,

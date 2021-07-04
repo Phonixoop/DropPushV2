@@ -33,14 +33,19 @@ let MessageService = class MessageService {
             });
             let payload;
             if (msg) {
+                msg.title = input.title;
+                msg.iconUrl = input.iconUrl;
+                msg.message = input.message;
+                msg.messageId = uuid_1.v4();
+                await msg.save();
                 payload = {
-                    appId: input.appId,
-                    title: input.title,
-                    iconUrl: input.iconUrl,
-                    message: input.message,
-                    messageId: uuid_1.v4(),
+                    appId: msg.appId,
+                    title: msg.title,
+                    iconUrl: msg.iconUrl,
+                    message: msg.message,
+                    project: msg.project,
+                    messageId: msg.messageId,
                 };
-                await msg.save(payload);
             }
             else {
                 payload = {
@@ -48,6 +53,7 @@ let MessageService = class MessageService {
                     title: input.title,
                     iconUrl: input.iconUrl,
                     message: input.message,
+                    project: mongoose_1.Types.ObjectId(input.projectId),
                     messageId: uuid_1.v4(),
                 };
                 const message = await (await this.Message.create(payload)).save();

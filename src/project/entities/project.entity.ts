@@ -11,7 +11,7 @@ export class Project extends Document {
   @Prop({ required: true, unique: false, ref: 'User' })
   user!: Types.ObjectId;
 
-  @Prop({ required: true, unique: false })
+  @Prop({ required: true, unique: false, match: /^[a-z][a-z0-9]*$/i })
   nickName!: string;
 
   @Prop({ required: true, unique: true })

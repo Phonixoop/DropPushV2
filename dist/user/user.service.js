@@ -127,6 +127,17 @@ let UserService = class UserService {
             return Promise.reject();
         }
     }
+    async FindById(_id, session) {
+        try {
+            const user = await this.User.findOne({ _id }, null, { session });
+            if (!user)
+                return Promise.reject();
+            return Promise.resolve(user);
+        }
+        catch {
+            return Promise.reject();
+        }
+    }
     async GenerateRefreshAuthToken(user) {
         return new Promise((resolve, reject) => {
             const expiration = environment_1.Env.RefreshTokenExpireTime;

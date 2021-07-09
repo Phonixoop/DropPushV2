@@ -15,7 +15,11 @@ const mongoose_2 = require("mongoose");
 let Platform = class Platform extends mongoose_2.Document {
 };
 __decorate([
-    mongoose_1.Prop({ required: true, unique: true }),
+    mongoose_1.Prop({
+        required: true,
+        unique: true,
+        match: /^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i,
+    }),
     __metadata("design:type", String)
 ], Platform.prototype, "appId", void 0);
 __decorate([

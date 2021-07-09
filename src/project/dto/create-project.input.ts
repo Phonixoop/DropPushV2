@@ -13,6 +13,7 @@ export class CreateProjectInput {
   @IsString()
   @MinLength(3)
   @MaxLength(255)
+  @Matches(/^[a-z][a-z0-9]*$/i)
   nickName!: string;
 
   // platform

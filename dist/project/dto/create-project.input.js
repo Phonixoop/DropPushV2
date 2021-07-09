@@ -18,6 +18,7 @@ __decorate([
     class_validator_1.IsString(),
     class_validator_1.MinLength(3),
     class_validator_1.MaxLength(255),
+    class_validator_1.Matches(/^[a-z][a-z0-9]*$/i),
     __metadata("design:type", String)
 ], CreateProjectInput.prototype, "nickName", void 0);
 __decorate([

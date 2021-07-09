@@ -24,6 +24,7 @@ import { PublicMessageModule } from './public-message/public-message.module';
 import { RouterModule, Routes } from 'nest-router';
 
 require('dotenv').config();
+
 @Module({
   imports: [
     ThrottlerModule.forRoot({

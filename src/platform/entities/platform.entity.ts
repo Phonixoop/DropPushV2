@@ -10,7 +10,11 @@ import { User } from '../../user/entities/user.entity';
 
 @Schema({ timestamps: true })
 export class Platform extends Document {
-  @Prop({ required: true, unique: true })
+  @Prop({
+    required: true,
+    unique: true,
+    match: /^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i,
+  })
   appId!: string;
 
   @Prop({ required: true, unique: false })

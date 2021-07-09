@@ -19,7 +19,7 @@ __decorate([
     __metadata("design:type", mongoose_2.Types.ObjectId)
 ], Project.prototype, "user", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true, unique: false }),
+    mongoose_1.Prop({ required: true, unique: false, match: /^[a-z][a-z0-9]*$/i }),
     __metadata("design:type", String)
 ], Project.prototype, "nickName", void 0);
 __decorate([

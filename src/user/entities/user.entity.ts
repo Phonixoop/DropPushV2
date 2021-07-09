@@ -3,7 +3,6 @@ import { SchemaTypes, Types, Document, Mongoose, Model } from 'mongoose';
 
 import { Env } from 'src/environments/environment';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 
 @Schema({ timestamps: true })
 export class User extends Document {
@@ -16,8 +15,13 @@ export class User extends Document {
   @Prop({ required: true, unique: true, index: true })
   email!: string;
 
-  @Prop({ required: false })
-  projectsIds?: [Types.ObjectId];
+  // @Prop({
+  //   type: [Types.ObjectId],
+  //   required: false,
+  //   unique: true,
+  //   ref: 'projects',
+  // })
+  // projects?: Types.ObjectId[];
 
   @Prop({ required: false })
   token?: string;

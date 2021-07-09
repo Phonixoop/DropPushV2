@@ -3,6 +3,7 @@ import { CreateUserInput } from './dto/create-user.input';
 import { User } from './entities/user.entity';
 import { Response } from 'express';
 import { LoginUserInput } from './dto/login-user.input';
+import * as mongoose from 'mongoose';
 interface IReqResponse {
     status: number;
     ok: boolean;
@@ -20,6 +21,7 @@ export declare class UserService {
     }>;
     FindByCredentials(email: string, password: string): Promise<User>;
     FindByIdAndToken(_id: string, token: string): Promise<User>;
+    FindById(_id: string, session: mongoose.ClientSession): Promise<User>;
     GenerateRefreshAuthToken(user: User): Promise<string>;
     GenerateAccessAuthToken(user: User): Promise<string>;
     EncodePassword(user: User): Promise<string>;

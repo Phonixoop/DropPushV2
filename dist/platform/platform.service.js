@@ -21,12 +21,12 @@ let PlatformService = class PlatformService {
     constructor(Platform) {
         this.Platform = Platform;
     }
-    async create(input) {
+    async create(input, session) {
         try {
             const exists = await this.checkAppId(input.appId);
             if ((exists.ok || !exists.ok) && !exists.isAppIdAvailable)
                 return { ok: false };
-            const platform = await (await this.Platform.create(input)).save();
+            const platform = await (await this.Platform.create(input)).save({ session });
             return { ok: true, appId: platform.appId };
         }
         catch {
@@ -68,11 +68,11 @@ let PlatformService = class PlatformService {
     async findOne(filter) {
         return await this.Platform.findOne(filter);
     }
-    async findByProject(project) {
-        return await this.Platform.findOne({ project });
+    async findByProject(project, session) {
+        return await this.Platform.findOne({ project }, null, { session });
     }
-    async deleteOnePlatform(projectId) {
-        return await this.Platform.deleteOne({ project: projectId });
+    async deleteOnePlatform(projectId, session) {
+        return await this.Platform.deleteOne({ project: projectId }, { session });
     }
 };
 PlatformService = __decorate([

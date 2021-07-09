@@ -19,8 +19,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 import { Env } from './../environments/environment';
 import { LoginUserInput } from './dto/login-user.input';
+import * as mongoose from 'mongoose';
 
-import { truncate } from 'fs';
 interface IReqResponse {
   status: number;
   ok: boolean;
@@ -141,6 +141,16 @@ export class UserService {
   public async FindByIdAndToken(_id: string, token: string) {
     try {
       const user = await this.User.findOne({ _id, token });
+      if (!user) return Promise.reject();
+      return Promise.resolve(user);
+    } catch {
+      return Promise.reject();
+    }
+  }
+
+  public async FindById(_id: string, session: mongoose.ClientSession) {
+    try {
+      const user = await this.User.findOne({ _id }, null, { session });
       if (!user) return Promise.reject();
       return Promise.resolve(user);
     } catch {

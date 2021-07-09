@@ -3,6 +3,7 @@ import { FilterQuery, Model, NativeError, QueryOptions, Types } from 'mongoose';
 import { CreatePlatformInput } from './dto/create-platform.input';
 import { Platform } from './entities/platform.entity';
 import { InjectModel } from '@nestjs/mongoose';
+import * as mongoose from 'mongoose';
 interface IReqResponse {
   ok: boolean;
   appId?: string;
@@ -18,14 +19,19 @@ export class PlatformService {
     @InjectModel(Platform.name) private readonly Platform: Model<Platform>,
   ) {}
 
-  public async create(input: CreatePlatformInput): Promise<IReqResponse> {
+  public async create(
+    input: CreatePlatformInput,
+    session: mongoose.ClientSession,
+  ): Promise<IReqResponse> {
     try {
       const exists = await this.checkAppId(input.appId);
 
       if ((exists.ok || !exists.ok) && !exists.isAppIdAvailable)
         return { ok: false };
 
-      const platform = await (await this.Platform.create(input)).save();
+      const platform = await (
+        await this.Platform.create(input)
+      ).save({ session });
       return { ok: true, appId: platform.appId };
     } catch {
       return { ok: false };
@@ -74,11 +80,17 @@ export class PlatformService {
     return await this.Platform.findOne(filter);
   }
 
-  public async findByProject(project: Types.ObjectId) {
-    return await this.Platform.findOne({ project });
+  public async findByProject(
+    project: Types.ObjectId,
+    session: mongoose.ClientSession,
+  ) {
+    return await this.Platform.findOne({ project }, null, { session });
   }
 
-  public async deleteOnePlatform(projectId: Types.ObjectId) {
-    return await this.Platform.deleteOne({ project: projectId });
+  public async deleteOnePlatform(
+    projectId: Types.ObjectId,
+    session: mongoose.ClientSession,
+  ) {
+    return await this.Platform.deleteOne({ project: projectId }, { session });
   }
 }

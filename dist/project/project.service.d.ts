@@ -1,4 +1,6 @@
+import * as mongoose from 'mongoose';
 import { Model } from 'mongoose';
+import { UserService } from 'src/user/user.service';
 import { PlatformService } from '../platform/platform.service';
 import { CreateProjectInput } from './dto/create-project.input';
 import { Project } from './entities/project.entity';
@@ -11,7 +13,9 @@ interface IReqResponse {
 export declare class ProjectService {
     private readonly Project;
     private readonly platformService;
-    constructor(Project: Model<Project>, platformService: PlatformService);
+    private readonly userService;
+    private readonly connection;
+    constructor(Project: Model<Project>, platformService: PlatformService, userService: UserService, connection: mongoose.Connection);
     create(input: CreateProjectInput, userId: string): Promise<IReqResponse>;
     projects(userId: string): Promise<{
         status: number;

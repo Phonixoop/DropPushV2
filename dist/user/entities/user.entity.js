@@ -58,10 +58,6 @@ __decorate([
 ], User.prototype, "email", void 0);
 __decorate([
     mongoose_1.Prop({ required: false }),
-    __metadata("design:type", Array)
-], User.prototype, "projectsIds", void 0);
-__decorate([
-    mongoose_1.Prop({ required: false }),
     __metadata("design:type", String)
 ], User.prototype, "token", void 0);
 __decorate([

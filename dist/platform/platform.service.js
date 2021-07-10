@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("mongoose");
 const platform_entity_1 = require("./entities/platform.entity");
 const mongoose_2 = require("@nestjs/mongoose");
+const socket_service_1 = require("../socket/socket.service");
 let PlatformService = class PlatformService {
-    constructor(Platform) {
+    constructor(Platform, socketService) {
         this.Platform = Platform;
+        this.socketService = socketService;
     }
     async create(input, session) {
         try {
@@ -74,11 +76,15 @@ let PlatformService = class PlatformService {
     async deleteOnePlatform(projectId, session) {
         return await this.Platform.deleteOne({ project: projectId }, { session });
     }
+    async getOnlineUsers(appId) {
+        return await this.socketService.getOnlineUsers(appId);
+    }
 };
 PlatformService = __decorate([
     common_1.Injectable(),
     __param(0, mongoose_2.InjectModel(platform_entity_1.Platform.name)),
-    __metadata("design:paramtypes", [mongoose_1.Model])
+    __metadata("design:paramtypes", [mongoose_1.Model,
+        socket_service_1.SocketService])
 ], PlatformService);
 exports.PlatformService = PlatformService;
 //# sourceMappingURL=platform.service.js.map

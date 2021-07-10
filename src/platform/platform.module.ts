@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { PlatformService } from './platform.service';
 import { PlatformController } from './platform.controller';
 import { Platform, PlatformEntitySchema } from './entities/platform.entity';
@@ -8,9 +8,11 @@ import { MiddlewareConsumer } from '@nestjs/common';
 
 import { UserModule } from '../user/user.module';
 import { VerifyAccessTokenMID } from '../middlewares/verifyAccessToken.mid';
+import { SocketModule } from 'src/socket/socket.module';
 @Module({
   imports: [
     UserModule,
+    forwardRef(() => SocketModule),
     MongooseModule.forFeature([
       { name: Platform.name, schema: PlatformEntitySchema },
     ]),

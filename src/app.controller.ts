@@ -7,6 +7,6 @@ export class AppController {
 
   @Get('v')
   public async Get() {
-    return 'v2 transaction completed ui improved';
+    return 'socket online users count added and more';
   }
 }

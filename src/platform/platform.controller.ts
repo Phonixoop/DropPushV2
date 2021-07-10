@@ -11,6 +11,7 @@ import {
 import { PlatformService } from './platform.service';
 import { CreatePlatformInput } from './dto/create-platform.input';
 import { Response } from 'express';
+import { SocketService } from 'src/socket/socket.service';
 
 @Controller('api/v1/platform')
 export class PlatformController {
@@ -29,6 +30,20 @@ export class PlatformController {
         isAppIdAvailable: result.isAppIdAvailable,
       };
       res.status(result.status).json(payload);
+    } catch {
+      res.status(400).json({ ok: false });
+    }
+  }
+
+  @Post('onlineUsers')
+  public async checkOnlineUsers(
+    @Body() input: { appId: string },
+    @Res() res: Response,
+  ) {
+    try {
+      const result = await this.platformService.getOnlineUsers(input.appId);
+
+      res.status(200).json({ onlineUsers: result });
     } catch {
       res.status(400).json({ ok: false });
     }

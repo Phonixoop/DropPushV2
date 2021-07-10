@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlatformController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_service_1 = require("./platform.service");
+const socket_service_1 = require("../socket/socket.service");
 let PlatformController = class PlatformController {
     constructor(platformService) {
         this.platformService = platformService;
@@ -32,6 +33,15 @@ let PlatformController = class PlatformController {
             res.status(400).json({ ok: false });
         }
     }
+    async checkOnlineUsers(input, res) {
+        try {
+            const result = await this.platformService.getOnlineUsers(input.appId);
+            res.status(200).json({ onlineUsers: result });
+        }
+        catch {
+            res.status(400).json({ ok: false });
+        }
+    }
 };
 __decorate([
     common_1.Post('checkAppId'),
@@ -41,6 +51,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], PlatformController.prototype, "checkAppId", null);
+__decorate([
+    common_1.Post('onlineUsers'),
+    __param(0, common_1.Body()),
+    __param(1, common_1.Res()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], PlatformController.prototype, "checkOnlineUsers", null);
 PlatformController = __decorate([
     common_1.Controller('api/v1/platform'),
     __metadata("design:paramtypes", [platform_service_1.PlatformService])

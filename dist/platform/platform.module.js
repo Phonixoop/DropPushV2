@@ -14,6 +14,7 @@ const platform_entity_1 = require("./entities/platform.entity");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_module_1 = require("../user/user.module");
 const verifyAccessToken_mid_1 = require("../middlewares/verifyAccessToken.mid");
+const socket_module_1 = require("../socket/socket.module");
 let PlatformModule = class PlatformModule {
     configure(consumer) {
         consumer.apply(verifyAccessToken_mid_1.VerifyAccessTokenMID).forRoutes('api/v1/platform');
@@ -23,6 +24,7 @@ PlatformModule = __decorate([
     common_1.Module({
         imports: [
             user_module_1.UserModule,
+            common_1.forwardRef(() => socket_module_1.SocketModule),
             mongoose_1.MongooseModule.forFeature([
                 { name: platform_entity_1.Platform.name, schema: platform_entity_1.PlatformEntitySchema },
             ]),

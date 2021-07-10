@@ -4,6 +4,8 @@ import { CreatePlatformInput } from './dto/create-platform.input';
 import { Platform } from './entities/platform.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
+import { Request } from 'express';
+import { SocketService } from 'src/socket/socket.service';
 interface IReqResponse {
   ok: boolean;
   appId?: string;
@@ -17,6 +19,7 @@ interface IProject {
 export class PlatformService {
   constructor(
     @InjectModel(Platform.name) private readonly Platform: Model<Platform>,
+    private readonly socketService: SocketService,
   ) {}
 
   public async create(
@@ -92,5 +95,9 @@ export class PlatformService {
     session: mongoose.ClientSession,
   ) {
     return await this.Platform.deleteOne({ project: projectId }, { session });
+  }
+
+  public async getOnlineUsers(appId: string) {
+    return await this.socketService.getOnlineUsers(appId);
   }
 }

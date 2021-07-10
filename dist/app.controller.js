@@ -17,7 +17,7 @@ let AppController = class AppController {
         this.appService = appService;
     }
     async Get() {
-        return 'v1';
+        return 'v2 transaction completed ui improved';
     }
 };
 __decorate([

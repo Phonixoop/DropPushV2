@@ -6,4 +6,7 @@ export declare class PlatformController {
     checkAppId(input: {
         appId: string;
     }, res: Response): Promise<void>;
+    checkOnlineUsers(input: {
+        appId: string;
+    }, res: Response): Promise<void>;
 }

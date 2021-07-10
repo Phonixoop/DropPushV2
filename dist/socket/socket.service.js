@@ -27,7 +27,8 @@ require('dotenv').config();
 let SocketService = class SocketService {
     constructor(messageService) {
         this.messageService = messageService;
-        this.onlineUsersCount = 0;
+        this.users = {};
+        this.maxListeners = 3;
         this.logger = new common_3.Logger('AppGateway');
     }
     async afterInit(server) {
@@ -36,7 +37,11 @@ let SocketService = class SocketService {
                 let token = socket.handshake.query.token.toString();
                 const decoded = await crypt_1.Cryption.decrypt(token, environment_1.Env.CRYPTION_SECRET_KEY);
                 socket.handshake.headers.appId = decoded.data;
-                this.onlineUsersCount = 0;
+                this.devices = Object.keys(socket.nsp.adapter.sids);
+                if (this.devices === undefined ||
+                    this.devices.length >= this.maxListeners) {
+                    return;
+                }
                 next();
             }
             catch {
@@ -45,17 +50,19 @@ let SocketService = class SocketService {
         });
     }
     handleConnection(client) {
+        this.devices = Object.keys(client.nsp.adapter.sids);
+        console.log(client.handshake.address);
         client.emit('connected', { ok: true });
-        this.onlineUsersCount++;
     }
     handleDisconnect(client) {
-        this.onlineUsersCount--;
+        this.devices = Object.keys(client.nsp.adapter.sids);
     }
-    JoinRoom(client, room) {
-        if (room === client.handshake.headers.appId) {
-            client.join(room);
-            client.emit('checkRoom', 'you joined');
-        }
+    async JoinRoom(client, room) {
+        if (room !== client.handshake.headers.appId)
+            return;
+        client.join(room);
+        this.devices = Object.keys(client.nsp.adapter.sids);
+        client.emit('checkRoom', 'you joined');
     }
     async CheckMessage(client, data) {
         const result = await this.messageService.findMessage(client.handshake.headers.appId.toString());
@@ -66,8 +73,11 @@ let SocketService = class SocketService {
     async PushMessage(payload, room) {
         try {
             payload.pass = false;
+            delete payload.project;
             this.server.in(room).emit('getMessage', payload);
-            Promise.resolve();
+            let onlineUsers = this.server.local['adapter'].rooms[room];
+            onlineUsers = Object.entries(onlineUsers)[1][1];
+            Promise.resolve({ onlineUsers });
         }
         catch {
             Promise.reject();
@@ -78,13 +88,18 @@ let SocketService = class SocketService {
             payload.pass = true;
             delete payload.token;
             this.server.emit('getMessage', payload);
-            return ('Your Message has been sent to ' +
-                this.onlineUsersCount +
-                ' online users');
+            return ('Your Message has been sent to ' + this.devices.length + ' online users');
         }
         catch (e) {
             return undefined;
         }
+    }
+    async getOnlineUsers(room) {
+        let onlineUsers = this.server.local['adapter'].rooms[room];
+        if (onlineUsers === null || onlineUsers === undefined)
+            return Promise.resolve(0);
+        onlineUsers = Object.entries(onlineUsers)[1][1];
+        return Promise.resolve(onlineUsers);
     }
 };
 __decorate([
@@ -95,7 +110,7 @@ __decorate([
     websockets_1.SubscribeMessage('joinRoom'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [socket_io_1.Socket, String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], SocketService.prototype, "JoinRoom", null);
 __decorate([
     websockets_1.SubscribeMessage('checkMessage'),

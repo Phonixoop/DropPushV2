@@ -5,15 +5,18 @@ export declare class SocketService implements OnGatewayInit, OnGatewayConnection
     private readonly messageService;
     constructor(messageService: MessageService);
     server: Server;
-    onlineUsersCount: number;
+    users: any;
+    devices: string[];
+    maxListeners: number;
     private logger;
     afterInit(server: any): Promise<void>;
     handleConnection(client: Socket): void;
     handleDisconnect(client: Socket): void;
-    JoinRoom(client: Socket, room: string): void;
+    JoinRoom(client: Socket, room: string): Promise<void>;
     CheckMessage(client: Socket, data: {
         messageId: string;
     }): Promise<void>;
     PushMessage(payload: any, room: string): Promise<void>;
     PushMessageToAll(payload: any): Promise<string>;
+    getOnlineUsers(room: string): Promise<number>;
 }

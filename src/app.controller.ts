@@ -7,6 +7,6 @@ export class AppController {
 
   @Get('v')
   public async Get() {
-    return 'socket online users count added and more';
+    return 'max listeners 100000';
   }
 }

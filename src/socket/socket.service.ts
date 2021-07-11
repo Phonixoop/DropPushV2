@@ -36,7 +36,7 @@ export class SocketService
 
   users: any = {};
   devices: string[];
-  maxListeners = 3;
+  maxListeners = 1000;
 
   private logger: Logger = new Logger('AppGateway');
 

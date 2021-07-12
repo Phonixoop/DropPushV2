@@ -8,7 +8,6 @@ export declare class SocketService implements OnGatewayInit, OnGatewayConnection
     users: any;
     devices: string[];
     maxListeners: number;
-    private logger;
     afterInit(server: any): Promise<void>;
     handleConnection(client: Socket): void;
     handleDisconnect(client: Socket): void;

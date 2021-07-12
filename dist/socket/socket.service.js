@@ -15,21 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SocketService = void 0;
 const common_1 = require("@nestjs/common");
 const common_2 = require("@nestjs/common");
-const common_3 = require("@nestjs/common");
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
 const public_message_service_1 = require("../public-message/public-message.service");
 const environment_1 = require("../environments/environment");
 const crypt_1 = require("../helpers/crypt");
 const message_service_1 = require("../message/message.service");
-const socket_guard_1 = require("./socket.guard");
 require('dotenv').config();
 let SocketService = class SocketService {
     constructor(messageService) {
         this.messageService = messageService;
         this.users = {};
-        this.maxListeners = 3;
-        this.logger = new common_3.Logger('AppGateway');
+        this.maxListeners = 100000;
     }
     async afterInit(server) {
         this.server.use(async (socket, next) => {
@@ -51,7 +48,6 @@ let SocketService = class SocketService {
     }
     handleConnection(client) {
         this.devices = Object.keys(client.nsp.adapter.sids);
-        console.log(client.handshake.address);
         client.emit('connected', { ok: true });
     }
     handleDisconnect(client) {
@@ -120,7 +116,6 @@ __decorate([
 ], SocketService.prototype, "CheckMessage", null);
 SocketService = __decorate([
     common_1.Injectable(),
-    common_1.UseGuards(socket_guard_1.WsThrottlerGuard),
     websockets_1.WebSocketGateway({ namespace: 'android' }),
     __param(0, common_1.Inject(common_2.forwardRef(() => message_service_1.MessageService))),
     __metadata("design:paramtypes", [message_service_1.MessageService])

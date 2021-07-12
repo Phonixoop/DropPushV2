@@ -21,7 +21,7 @@ import { join } from 'path';
 require('dotenv').config();
 
 @Injectable()
-@UseGuards(WsThrottlerGuard)
+//@UseGuards(WsThrottlerGuard)
 @WebSocketGateway({ namespace: 'android' })
 export class SocketService
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
@@ -36,9 +36,9 @@ export class SocketService
 
   users: any = {};
   devices: string[];
-  maxListeners = 1000;
+  maxListeners = 100000;
 
-  private logger: Logger = new Logger('AppGateway');
+  //private logger: Logger = new Logger('AppGateway');
 
   async afterInit(server: any) {
     this.server.use(async (socket: Socket, next) => {
@@ -67,7 +67,7 @@ export class SocketService
     //   client.request.socket.remoteAddress + ' successfully connected',
     // );
     this.devices = Object.keys(client.nsp.adapter.sids);
-    console.log(client.handshake.address);
+    // console.log(client.handshake.address);
     client.emit('connected', { ok: true });
   }
 

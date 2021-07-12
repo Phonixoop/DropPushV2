@@ -17,7 +17,7 @@ let AppController = class AppController {
         this.appService = appService;
     }
     async Get() {
-        return 'v2 transaction completed ui improved';
+        return 'max listeners 100000';
     }
 };
 __decorate([

@@ -7,6 +7,6 @@ export class AppController {
 
   @Get('v')
   public async Get() {
-    return 'max listeners 100000';
+    return 'Global ttl limit | socket limit removed';
   }
 }

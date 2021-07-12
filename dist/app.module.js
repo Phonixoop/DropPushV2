@@ -24,10 +24,11 @@ const throttler_1 = require("@nestjs/throttler");
 const public_api_module_1 = require("./public-api/public-api.module");
 const environment_1 = require("./environments/environment");
 const public_message_module_1 = require("./public-message/public-message.module");
+const core_1 = require("@nestjs/core");
 require('dotenv').config();
 let AppModule = class AppModule {
     constructor() {
-        console.log('MONGO STRING ', environment_1.Env.MONGODB);
+        console.log('MONGODB CONNECTION STRING ', environment_1.Env.MONGODB);
         console.log('PORT ', process.env.PORT || 3000);
     }
 };
@@ -36,7 +37,7 @@ AppModule = __decorate([
         imports: [
             throttler_1.ThrottlerModule.forRoot({
                 ttl: 60,
-                limit: 10,
+                limit: 20,
             }),
             user_module_1.UserModule,
             platform_module_1.PlatformModule,
@@ -55,7 +56,13 @@ AppModule = __decorate([
             }),
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [
+            app_service_1.AppService,
+            {
+                provide: core_1.APP_GUARD,
+                useClass: throttler_1.ThrottlerGuard,
+            },
+        ],
     }),
     __metadata("design:paramtypes", [])
 ], AppModule);

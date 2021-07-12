@@ -4,6 +4,7 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
@@ -14,7 +15,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ProjectModule } from './project/project.module';
 import { PlatformModule } from './platform/platform.module';
 import { MessageModule } from './message/message.module';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 
 import { PublicApiModule } from './public-api/public-api.module';
 
@@ -22,14 +23,14 @@ import { Env } from './environments/environment';
 import { PublicMessageModule } from './public-message/public-message.module';
 
 import { RouterModule, Routes } from 'nest-router';
-
+import { APP_GUARD } from '@nestjs/core';
 require('dotenv').config();
 
 @Module({
   imports: [
     ThrottlerModule.forRoot({
       ttl: 60,
-      limit: 10,
+      limit: 20,
     }),
 
     UserModule,
@@ -51,11 +52,17 @@ require('dotenv').config();
   ],
 
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {
   constructor() {
-    console.log('MONGO STRING ', Env.MONGODB);
+    console.log('MONGODB CONNECTION STRING ', Env.MONGODB);
     console.log('PORT ', process.env.PORT || 3000);
   }
 }

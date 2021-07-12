@@ -55,6 +55,13 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   //app.setGlobalPrefix('/api/v1');
 
+  // setInterval((x) => {
+  //   const used = process.memoryUsage().heapUsed / 1024 / 1024;
+  //   console.log(
+  //     `The script uses approximately ${Math.round(used * 100) / 100} MB`,
+  //   );
+  // }, 1000);
+
   await app.listen(process.env.PORT || 3000);
 }
 

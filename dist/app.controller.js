@@ -17,7 +17,7 @@ let AppController = class AppController {
         this.appService = appService;
     }
     async Get() {
-        return 'max listeners 100000';
+        return 'Global ttl limit | socket limit removed next build : ui project nickname is requeired';
     }
 };
 __decorate([

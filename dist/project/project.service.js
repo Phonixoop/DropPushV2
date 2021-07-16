@@ -62,7 +62,8 @@ let ProjectService = class ProjectService {
                 session.endSession();
             }
         }
-        catch {
+        catch (e) {
+            console.log(e);
             return { status: 400, ok: false };
         }
     }

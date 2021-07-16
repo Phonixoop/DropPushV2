@@ -61,7 +61,7 @@ async function bootstrap() {
   //     `The script uses approximately ${Math.round(used * 100) / 100} MB`,
   //   );
   // }, 1000);
-
+  console.log('hostname : ' + process.env.HOSTNAME);
   await app.listen(process.env.PORT || 3000);
 }
 

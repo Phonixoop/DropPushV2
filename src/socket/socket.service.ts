@@ -76,7 +76,7 @@ export class SocketService
     // this.logger.log(client.id, 'Disconnect here' + this.server._nsps);
   }
 
-  //listeners
+  //listener
   @SubscribeMessage('joinRoom')
   public async JoinRoom(client: Socket, room: string) {
     if (room !== client.handshake.headers.appId) return;
@@ -92,13 +92,13 @@ export class SocketService
     // let clients = client.nsp.adapter.rooms[room];
     // const count = Object.keys(clients).length;
   }
-
+  //listener
   @SubscribeMessage('checkMessage')
-  public async CheckMessage(client: Socket, data: { messageId: string }) {
+  public async CheckMessage(client: Socket, messageId: string) {
     const result = await this.messageService.findMessage(
       client.handshake.headers.appId.toString(),
     );
-    if (result.messageId !== data.messageId) {
+    if (result.messageId !== messageId) {
       this.server.in(result.appId).emit('getMessage', result);
     }
   }

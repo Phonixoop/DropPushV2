@@ -60,9 +60,9 @@ let SocketService = class SocketService {
         this.devices = Object.keys(client.nsp.adapter.sids);
         client.emit('checkRoom', 'you joined');
     }
-    async CheckMessage(client, data) {
+    async CheckMessage(client, messageId) {
         const result = await this.messageService.findMessage(client.handshake.headers.appId.toString());
-        if (result.messageId !== data.messageId) {
+        if (result.messageId !== messageId) {
             this.server.in(result.appId).emit('getMessage', result);
         }
     }
@@ -111,7 +111,7 @@ __decorate([
 __decorate([
     websockets_1.SubscribeMessage('checkMessage'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
+    __metadata("design:paramtypes", [socket_io_1.Socket, String]),
     __metadata("design:returntype", Promise)
 ], SocketService.prototype, "CheckMessage", null);
 SocketService = __decorate([

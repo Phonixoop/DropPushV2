@@ -74,7 +74,8 @@ export class ProjectService {
       } finally {
         session.endSession();
       }
-    } catch {
+    } catch (e) {
+      console.log(e);
       return { status: 400, ok: false };
     }
   }

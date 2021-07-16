@@ -30,6 +30,7 @@ async function bootstrap() {
     });
     app.use(cookieParser());
     app.useGlobalPipes(new common_1.ValidationPipe());
+    console.log('hostname : ' + process.env.HOSTNAME);
     await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

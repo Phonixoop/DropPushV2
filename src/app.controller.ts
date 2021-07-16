@@ -7,6 +7,6 @@ export class AppController {
 
   @Get('v')
   public async Get() {
-    return 'Global ttl limit | socket limit removed next build : ui project nickname is requeired';
+    return 'checkMessage get string';
   }
 }

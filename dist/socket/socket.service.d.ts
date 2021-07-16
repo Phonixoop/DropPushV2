@@ -12,9 +12,7 @@ export declare class SocketService implements OnGatewayInit, OnGatewayConnection
     handleConnection(client: Socket): void;
     handleDisconnect(client: Socket): void;
     JoinRoom(client: Socket, room: string): Promise<void>;
-    CheckMessage(client: Socket, data: {
-        messageId: string;
-    }): Promise<void>;
+    CheckMessage(client: Socket, messageId: string): Promise<void>;
     PushMessage(payload: any, room: string): Promise<void>;
     PushMessageToAll(payload: any): Promise<string>;
     getOnlineUsers(room: string): Promise<number>;

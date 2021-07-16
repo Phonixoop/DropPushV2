@@ -18,7 +18,6 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
 const mongoose = require("mongoose");
 const mongoose_3 = require("mongoose");
-const platform_entity_1 = require("../platform/entities/platform.entity");
 const user_service_1 = require("../user/user.service");
 const environment_1 = require("../environments/environment");
 const crypt_1 = require("../helpers/crypt");
@@ -38,7 +37,7 @@ let ProjectService = class ProjectService {
             try {
                 let deviceToken = null;
                 session.startTransaction();
-                deviceToken = await crypt_1.Cryption.encrypt(input.appId, environment_1.Env.CRYPTION_SECRET_KEY);
+                deviceToken = await this.CreateDeviceToken(input.appId);
                 const projectInput = new this.Project({
                     ...input,
                     deviceToken: deviceToken,
@@ -114,10 +113,10 @@ let ProjectService = class ProjectService {
                 session.startTransaction();
                 const id = mongoose_3.Types.ObjectId(projectId);
                 let project, platform;
+                project = await this.Project.findOne({ _id: id }, null, { session });
                 if (nickName) {
                     if (!Validator.matches(nickName, /^[a-z][a-z0-9]*$/i))
                         return { status: 400, ok: false };
-                    project = await this.Project.findOne({ _id: id }, null, { session });
                     project.nickName = nickName;
                 }
                 if (appId) {
@@ -125,6 +124,7 @@ let ProjectService = class ProjectService {
                         return { status: 400, ok: false };
                     platform = await this.platformService.findByProject(id, session);
                     platform.appId = appId;
+                    project.deviceToken = await this.CreateDeviceToken(appId);
                 }
                 if (nickName)
                     await project.save({ session });
@@ -143,6 +143,9 @@ let ProjectService = class ProjectService {
         catch {
             return { status: 400, ok: false };
         }
+    }
+    async CreateDeviceToken(appId) {
+        return await crypt_1.Cryption.encrypt(appId, environment_1.Env.CRYPTION_SECRET_KEY);
     }
 };
 ProjectService = __decorate([

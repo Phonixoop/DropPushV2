@@ -7,6 +7,6 @@ export class AppController {
 
   @Get('v')
   public async Get() {
-    return 'checkMessage get string';
+    return 'edit appId token should be change too bug fixed';
   }
 }

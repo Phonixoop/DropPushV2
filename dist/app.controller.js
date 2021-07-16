@@ -17,7 +17,7 @@ let AppController = class AppController {
         this.appService = appService;
     }
     async Get() {
-        return 'checkMessage get string';
+        return 'edit appId token should be change too bug fixed';
     }
 };
 __decorate([

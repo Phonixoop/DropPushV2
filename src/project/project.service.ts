@@ -5,8 +5,7 @@ import { InjectConnection } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Model, mongo, Types, SaveOptions } from 'mongoose';
 
-import { Platform } from 'src/platform/entities/platform.entity';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 import { Env } from '../environments/environment';
 import { Cryption } from '../helpers/crypt';
 import { CreatePlatformInput } from '../platform/dto/create-platform.input';
@@ -14,6 +13,7 @@ import { CreatePlatformInput } from '../platform/dto/create-platform.input';
 import { PlatformService } from '../platform/platform.service';
 import { CreateProjectInput } from './dto/create-project.input';
 import { Project } from './entities/project.entity';
+import { Platform } from '../platform/entities/platform.entity';
 import * as Validator from 'class-validator';
 interface IReqResponse {
   status: number;
@@ -42,10 +42,7 @@ export class ProjectService {
         let deviceToken: string = null;
 
         session.startTransaction();
-        deviceToken = await Cryption.encrypt(
-          input.appId,
-          Env.CRYPTION_SECRET_KEY,
-        );
+        deviceToken = await this.CreateDeviceToken(input.appId);
 
         const projectInput = new this.Project({
           ...input,
@@ -143,10 +140,11 @@ export class ProjectService {
         session.startTransaction();
         const id = Types.ObjectId(projectId);
         let project: Project, platform: Platform;
+        project = await this.Project.findOne({ _id: id }, null, { session });
         if (nickName) {
           if (!Validator.matches(nickName, /^[a-z][a-z0-9]*$/i))
             return { status: 400, ok: false };
-          project = await this.Project.findOne({ _id: id }, null, { session });
+
           project.nickName = nickName;
         }
 
@@ -158,8 +156,10 @@ export class ProjectService {
             )
           )
             return { status: 400, ok: false };
+
           platform = await this.platformService.findByProject(id, session);
           platform.appId = appId;
+          project.deviceToken = await this.CreateDeviceToken(appId);
         }
 
         if (nickName) await project.save({ session });
@@ -174,5 +174,9 @@ export class ProjectService {
     } catch {
       return { status: 400, ok: false };
     }
+  }
+
+  public async CreateDeviceToken(appId: string): Promise<string> {
+    return await Cryption.encrypt(appId, Env.CRYPTION_SECRET_KEY);
   }
 }

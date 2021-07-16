@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { Model } from 'mongoose';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 import { PlatformService } from '../platform/platform.service';
 import { CreateProjectInput } from './dto/create-project.input';
 import { Project } from './entities/project.entity';
@@ -53,5 +53,6 @@ export declare class ProjectService {
         status: number;
         ok: boolean;
     }>;
+    CreateDeviceToken(appId: string): Promise<string>;
 }
 export {};

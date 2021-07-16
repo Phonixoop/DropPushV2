@@ -17,7 +17,7 @@ let AppController = class AppController {
         this.appService = appService;
     }
     async Get() {
-        return 'Global ttl limit | socket limit removed next build : ui project nickname is requeired';
+        return 'checkMessage get string';
     }
 };
 __decorate([

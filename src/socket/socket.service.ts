@@ -34,7 +34,6 @@ export class SocketService
   @WebSocketServer()
   server: Server;
 
-  users: any = {};
   devices: string[];
   maxListeners = 100000;
 
@@ -66,13 +65,16 @@ export class SocketService
     // console.log(
     //   client.request.socket.remoteAddress + ' successfully connected',
     // );
-    this.devices = Object.keys(client.nsp.adapter.sids);
+    // this.devices = Object.keys(client.nsp.adapter.sids);
     // console.log(client.handshake.address);
     client.emit('connected', { ok: true });
   }
 
   handleDisconnect(client: Socket) {
-    this.devices = Object.keys(client.nsp.adapter.sids);
+    client.disconnect();
+    client.removeAllListeners();
+    client = null;
+    // this.devices = Object.keys(client.nsp.adapter.sids);
     // this.logger.log(client.id, 'Disconnect here' + this.server._nsps);
   }
 
@@ -83,7 +85,7 @@ export class SocketService
 
     client.join(room);
 
-    this.devices = Object.keys(client.nsp.adapter.sids);
+    // this.devices = Object.keys(client.nsp.adapter.sids);
     //const clients = client.nsp.adapter.rooms[room];
     // const clients = this.server.local['adapter'].rooms[room];
     // let onlineUsers = this.server.local['adapter'].rooms;
@@ -106,13 +108,14 @@ export class SocketService
   public async PushMessage(payload: any, room: string) {
     try {
       payload.pass = false;
-      delete payload.project;
       this.server.in(room).emit('getMessage', payload);
-      let onlineUsers = this.server.local['adapter'].rooms[room];
-      onlineUsers = Object.entries(onlineUsers)[1][1];
-      Promise.resolve({ onlineUsers });
+      //  let onlineUsers = this.server.local['adapter'].rooms[room];
+      //  onlineUsers = Object.entries(onlineUsers)[1][1];
+      Promise.resolve();
     } catch {
-      Promise.reject();
+      try {
+        Promise.reject();
+      } catch {}
     }
   }
 
@@ -121,9 +124,7 @@ export class SocketService
       payload.pass = true;
       delete payload.token;
       this.server.emit('getMessage', payload);
-      return (
-        'Your Message has been sent to ' + this.devices.length + ' online users'
-      );
+      return 'Your Message has been sent';
     } catch (e) {
       return undefined;
     }

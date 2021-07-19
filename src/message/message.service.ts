@@ -9,7 +9,7 @@ import { WebSocketServer } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { SocketService } from 'src/socket/socket.service';
 import { forwardRef } from '@nestjs/common';
-
+import * as mongoose from 'mongoose';
 interface IReqResponse {
   status: number;
   ok: boolean;
@@ -27,46 +27,40 @@ export class MessageService {
 
   public async create(input: CreateMessageInput): Promise<IReqResponse> {
     try {
-      let msg = await this.Message.findOne({
-        platformType: input.platformType,
-        appId: input.appId,
-      });
-
-      let payload;
-
-      if (msg) {
-        msg.title = input.title;
-        msg.iconUrl = input.iconUrl;
-        msg.message = input.message;
-        msg.messageId = uuidv4();
-        await msg.save();
-
-        payload = {
-          appId: msg.appId,
-          title: msg.title,
-          iconUrl: msg.iconUrl,
-          message: msg.message,
-          project: msg.project,
-          messageId: msg.messageId,
-        };
-      } else {
-        payload = {
+      input.messageId = uuidv4();
+      let message: Message = await this.Message.findOneAndUpdate(
+        {
+          platformType: input.platformType,
           appId: input.appId,
-          title: input.title,
-          iconUrl: input.iconUrl,
-          message: input.message,
-          project: Types.ObjectId(input.projectId),
-          messageId: uuidv4(),
-        };
+        },
+        input,
+        { upsert: true, useFindAndModify: false },
+      );
 
-        const message = await (await this.Message.create(payload)).save();
-      }
+      let payload = {
+        appId: message.appId,
+        title: message.title,
+        iconUrl: message.iconUrl,
+        message: message.message,
+        messageId: message.messageId,
+        pass: false,
+      };
 
       await this.socketService.PushMessage(payload, payload.appId);
       return { ok: true, status: 200 };
-    } catch {
+    } catch (e) {
+      console.log(e);
       return { ok: false, status: 400 };
     }
+  }
+
+  public async DeleteAllMessageByAppId(
+    appId: string,
+    session: mongoose.ClientSession,
+  ) {
+    try {
+      return await this.Message.deleteMany({ appId }, { session });
+    } catch {}
   }
 
   public async findMessage(appId: string): Promise<Message> {

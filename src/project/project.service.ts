@@ -15,6 +15,7 @@ import { CreateProjectInput } from './dto/create-project.input';
 import { Project } from './entities/project.entity';
 import { Platform } from '../platform/entities/platform.entity';
 import * as Validator from 'class-validator';
+import { MessageService } from './../message/message.service';
 interface IReqResponse {
   status: number;
   ok: boolean;
@@ -26,7 +27,7 @@ export class ProjectService {
   constructor(
     @InjectModel(Project.name) private readonly Project: Model<Project>,
     private readonly platformService: PlatformService,
-    private readonly userService: UserService,
+    private readonly messageService: MessageService,
     @InjectConnection() private readonly connection: mongoose.Connection,
   ) {}
 
@@ -92,13 +93,23 @@ export class ProjectService {
 
     try {
       session.startTransaction();
-      const pl = await this.platformService.deleteOnePlatform(
+      const platform = await this.platformService.deleteOnePlatform(
         Types.ObjectId(projectId),
         session,
       );
-      const pr = await this.Project.deleteOne({ _id: projectId }, { session });
+      const project = await this.Project.deleteOne(
+        { _id: projectId },
+        { session },
+      );
+      await this.messageService.DeleteAllMessageByAppId(
+        platform.appId,
+        session,
+      );
       await session.commitTransaction();
-      return { status: 200, ok: pr.deletedCount + pl.deletedCount >= 1 };
+      return {
+        status: 200,
+        ok: true,
+      };
     } catch (e) {
       console.log(e);
       return { status: 400, ok: false };

@@ -15,6 +15,7 @@ const project_entity_1 = require("./entities/project.entity");
 const user_module_1 = require("../user/user.module");
 const platform_module_1 = require("../platform/platform.module");
 const verifyAccessToken_mid_1 = require("../middlewares/verifyAccessToken.mid");
+const message_module_1 = require("../message/message.module");
 let ProjectModule = class ProjectModule {
     configure(consumer) {
         consumer.apply(verifyAccessToken_mid_1.VerifyAccessTokenMID).forRoutes('api/v1/project');
@@ -25,6 +26,7 @@ ProjectModule = __decorate([
         imports: [
             user_module_1.UserModule,
             platform_module_1.PlatformModule,
+            message_module_1.MessageModule,
             mongoose_1.MongooseModule.forFeature([
                 { name: project_entity_1.Project.name, schema: project_entity_1.ProjectEntitySchema },
             ]),

@@ -25,7 +25,6 @@ require('dotenv').config();
 let SocketService = class SocketService {
     constructor(messageService) {
         this.messageService = messageService;
-        this.users = {};
         this.maxListeners = 100000;
     }
     async afterInit(server) {
@@ -47,17 +46,17 @@ let SocketService = class SocketService {
         });
     }
     handleConnection(client) {
-        this.devices = Object.keys(client.nsp.adapter.sids);
         client.emit('connected', { ok: true });
     }
     handleDisconnect(client) {
-        this.devices = Object.keys(client.nsp.adapter.sids);
+        client.disconnect();
+        client.removeAllListeners();
+        client = null;
     }
     async JoinRoom(client, room) {
         if (room !== client.handshake.headers.appId)
             return;
         client.join(room);
-        this.devices = Object.keys(client.nsp.adapter.sids);
         client.emit('checkRoom', 'you joined');
     }
     async CheckMessage(client, messageId) {
@@ -69,14 +68,14 @@ let SocketService = class SocketService {
     async PushMessage(payload, room) {
         try {
             payload.pass = false;
-            delete payload.project;
             this.server.in(room).emit('getMessage', payload);
-            let onlineUsers = this.server.local['adapter'].rooms[room];
-            onlineUsers = Object.entries(onlineUsers)[1][1];
-            Promise.resolve({ onlineUsers });
+            Promise.resolve();
         }
         catch {
-            Promise.reject();
+            try {
+                Promise.reject();
+            }
+            catch { }
         }
     }
     async PushMessageToAll(payload) {
@@ -84,7 +83,7 @@ let SocketService = class SocketService {
             payload.pass = true;
             delete payload.token;
             this.server.emit('getMessage', payload);
-            return ('Your Message has been sent to ' + this.devices.length + ' online users');
+            return 'Your Message has been sent';
         }
         catch (e) {
             return undefined;

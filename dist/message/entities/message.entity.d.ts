@@ -1,9 +1,8 @@
-import { Types, Document, Model } from 'mongoose';
+import { Document, Model } from 'mongoose';
 export declare class Message extends Document {
     title: string;
     iconUrl: string;
     message: string;
-    project: Types.ObjectId;
     platformType: string;
     appId: string;
     expireDate?: Date;

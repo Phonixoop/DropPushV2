@@ -17,8 +17,8 @@ export class Message extends Document {
   @Prop({ required: true })
   message!: string;
 
-  @Prop({ type: Types.ObjectId, required: true, ref: 'projects' })
-  project!: Types.ObjectId;
+  // @Prop({ type: Types.ObjectId, required: true, ref: 'projects' })
+  // project!: Types.ObjectId;
 
   @Prop({ required: true, default: 'android' })
   platformType!: string;

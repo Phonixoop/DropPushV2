@@ -74,7 +74,7 @@ let PlatformService = class PlatformService {
         return await this.Platform.findOne({ project }, null, { session });
     }
     async deleteOnePlatform(projectId, session) {
-        return await this.Platform.deleteOne({ project: projectId }, { session });
+        return await this.Platform.findOneAndDelete({ project: projectId }, { session });
     }
     async getOnlineUsers(appId) {
         return await this.socketService.getOnlineUsers(appId);

@@ -7,6 +7,6 @@ export class AppController {
 
   @Get('v')
   public async Get() {
-    return 'edit appId token should be change too bug fixed';
+    return 'socket.disconnect on disconnect';
   }
 }

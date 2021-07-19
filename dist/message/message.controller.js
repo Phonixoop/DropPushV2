@@ -23,8 +23,15 @@ let MessageController = class MessageController {
     async create(createMessageInput, res, req) {
         if (!req.body.userId)
             res.status(401).json({ ok: false });
-        const result = await this.messageService.create(createMessageInput);
-        res.status(result.status).json({ ok: result.ok, message: result.message });
+        try {
+            const result = await this.messageService.create(createMessageInput);
+            res
+                .status(result.status)
+                .json({ ok: result.ok, message: result.message });
+        }
+        catch {
+            res.status(400).json({ ok: false, message: 'Something went wrong!' });
+        }
     }
 };
 __decorate([

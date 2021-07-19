@@ -1,9 +1,9 @@
 import * as mongoose from 'mongoose';
 import { Model } from 'mongoose';
-import { UserService } from '../user/user.service';
 import { PlatformService } from '../platform/platform.service';
 import { CreateProjectInput } from './dto/create-project.input';
 import { Project } from './entities/project.entity';
+import { MessageService } from './../message/message.service';
 interface IReqResponse {
     status: number;
     ok: boolean;
@@ -13,9 +13,9 @@ interface IReqResponse {
 export declare class ProjectService {
     private readonly Project;
     private readonly platformService;
-    private readonly userService;
+    private readonly messageService;
     private readonly connection;
-    constructor(Project: Model<Project>, platformService: PlatformService, userService: UserService, connection: mongoose.Connection);
+    constructor(Project: Model<Project>, platformService: PlatformService, messageService: MessageService, connection: mongoose.Connection);
     create(input: CreateProjectInput, userId: string): Promise<IReqResponse>;
     projects(userId: string): Promise<{
         status: number;

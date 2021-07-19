@@ -30,12 +30,7 @@ export declare class PlatformService {
     }[]>;
     findOne(filter?: FilterQuery<Platform>): Promise<Platform>;
     findByProject(project: Types.ObjectId, session: mongoose.ClientSession): Promise<Platform>;
-    deleteOnePlatform(projectId: Types.ObjectId, session: mongoose.ClientSession): Promise<{
-        ok?: number;
-        n?: number;
-    } & {
-        deletedCount?: number;
-    }>;
+    deleteOnePlatform(projectId: Types.ObjectId, session: mongoose.ClientSession): Promise<Platform>;
     getOnlineUsers(appId: string): Promise<number>;
 }
 export {};

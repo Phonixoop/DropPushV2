@@ -94,7 +94,10 @@ export class PlatformService {
     projectId: Types.ObjectId,
     session: mongoose.ClientSession,
   ) {
-    return await this.Platform.deleteOne({ project: projectId }, { session });
+    return await this.Platform.findOneAndDelete(
+      { project: projectId },
+      { session },
+    );
   }
 
   public async getOnlineUsers(appId: string) {

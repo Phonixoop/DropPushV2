@@ -38,11 +38,6 @@ __decorate([
 __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.IsString(),
-    __metadata("design:type", String)
-], CreateMessageInput.prototype, "projectId", void 0);
-__decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
     class_validator_1.MinLength(3),
     class_validator_1.MaxLength(255),
     __metadata("design:type", String)

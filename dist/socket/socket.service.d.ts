@@ -5,7 +5,6 @@ export declare class SocketService implements OnGatewayInit, OnGatewayConnection
     private readonly messageService;
     constructor(messageService: MessageService);
     server: Server;
-    users: any;
     devices: string[];
     maxListeners: number;
     afterInit(server: any): Promise<void>;

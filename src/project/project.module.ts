@@ -11,11 +11,13 @@ import { UserModule } from '../user/user.module';
 
 import { PlatformModule } from '../platform/platform.module';
 import { VerifyAccessTokenMID } from '../middlewares/verifyAccessToken.mid';
+import { MessageModule } from 'src/message/message.module';
 
 @Module({
   imports: [
     UserModule,
     PlatformModule,
+    MessageModule,
     MongooseModule.forFeature([
       { name: Project.name, schema: ProjectEntitySchema },
     ]),

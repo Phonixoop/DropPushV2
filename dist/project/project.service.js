@@ -18,17 +18,17 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
 const mongoose = require("mongoose");
 const mongoose_3 = require("mongoose");
-const user_service_1 = require("../user/user.service");
 const environment_1 = require("../environments/environment");
 const crypt_1 = require("../helpers/crypt");
 const platform_service_1 = require("../platform/platform.service");
 const project_entity_1 = require("./entities/project.entity");
 const Validator = require("class-validator");
+const message_service_1 = require("./../message/message.service");
 let ProjectService = class ProjectService {
-    constructor(Project, platformService, userService, connection) {
+    constructor(Project, platformService, messageService, connection) {
         this.Project = Project;
         this.platformService = platformService;
-        this.userService = userService;
+        this.messageService = messageService;
         this.connection = connection;
     }
     async create(input, userId) {
@@ -79,10 +79,14 @@ let ProjectService = class ProjectService {
         const session = await this.connection.startSession();
         try {
             session.startTransaction();
-            const pl = await this.platformService.deleteOnePlatform(mongoose_3.Types.ObjectId(projectId), session);
-            const pr = await this.Project.deleteOne({ _id: projectId }, { session });
+            const platform = await this.platformService.deleteOnePlatform(mongoose_3.Types.ObjectId(projectId), session);
+            const project = await this.Project.deleteOne({ _id: projectId }, { session });
+            await this.messageService.DeleteAllMessageByAppId(platform.appId, session);
             await session.commitTransaction();
-            return { status: 200, ok: pr.deletedCount + pl.deletedCount >= 1 };
+            return {
+                status: 200,
+                ok: true,
+            };
         }
         catch (e) {
             console.log(e);
@@ -154,7 +158,7 @@ ProjectService = __decorate([
     __param(3, mongoose_2.InjectConnection()),
     __metadata("design:paramtypes", [mongoose_3.Model,
         platform_service_1.PlatformService,
-        user_service_1.UserService, mongoose.Connection])
+        message_service_1.MessageService, mongoose.Connection])
 ], ProjectService);
 exports.ProjectService = ProjectService;
 //# sourceMappingURL=project.service.js.map

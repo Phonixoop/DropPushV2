@@ -1,3 +1,11 @@
-use('dropdbnest')
+use('TelegramBotInstaManager')
 
-db.projects.deleteMany({})
+db.messages.find({
+  MessageDetail: {
+    $elemMatch: {
+      DateTime: {
+        $gte: ISODate("2021-07-17")
+      }
+    }
+  }
+})

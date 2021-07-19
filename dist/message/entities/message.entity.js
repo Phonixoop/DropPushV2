@@ -29,10 +29,6 @@ __decorate([
     __metadata("design:type", String)
 ], Message.prototype, "message", void 0);
 __decorate([
-    mongoose_1.Prop({ type: mongoose_2.Types.ObjectId, required: true, ref: 'projects' }),
-    __metadata("design:type", mongoose_2.Types.ObjectId)
-], Message.prototype, "project", void 0);
-__decorate([
     mongoose_1.Prop({ required: true, default: 'android' }),
     __metadata("design:type", String)
 ], Message.prototype, "platformType", void 0);

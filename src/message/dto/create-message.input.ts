@@ -33,9 +33,9 @@ export class CreateMessageInput {
   @MaxLength(255)
   message!: string;
 
-  @IsNotEmpty()
-  @IsString()
-  projectId!: string;
+  // @IsNotEmpty()
+  // @IsString()
+  // projectId!: string;
 
   @IsNotEmpty()
   @IsString()

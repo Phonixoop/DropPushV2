@@ -26,8 +26,14 @@ export class MessageController {
   ) {
     if (!req.body.userId) res.status(401).json({ ok: false });
 
-    const result = await this.messageService.create(createMessageInput);
+    try {
+      const result = await this.messageService.create(createMessageInput);
 
-    res.status(result.status).json({ ok: result.ok, message: result.message });
+      res
+        .status(result.status)
+        .json({ ok: result.ok, message: result.message });
+    } catch {
+      res.status(400).json({ ok: false, message: 'Something went wrong!' });
+    }
   }
 }

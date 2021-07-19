@@ -28,15 +28,14 @@ export class MessageService {
   public async create(input: CreateMessageInput): Promise<IReqResponse> {
     try {
       input.messageId = uuidv4();
-      let message: Message = await this.Message.findOneAndUpdate(
+      const message: Message = await this.Message.findOneAndUpdate(
         {
-          platformType: input.platformType,
           appId: input.appId,
         },
         input,
-        { upsert: true, useFindAndModify: false },
+        { upsert: true, useFindAndModify: false, new: true },
       );
-
+      if (!message) return { ok: false, status: 400 };
       let payload = {
         appId: message.appId,
         title: message.title,
@@ -63,9 +62,18 @@ export class MessageService {
     } catch {}
   }
 
-  public async findMessage(appId: string): Promise<Message> {
+  public async findMessage(appId: string) {
     try {
-      return await this.Message.findOne({ appId });
+      const message = await this.Message.findOne({ appId });
+      let payload = {
+        appId: message.appId,
+        title: message.title,
+        iconUrl: message.iconUrl,
+        message: message.message,
+        messageId: message.messageId,
+        pass: false,
+      };
+      return payload;
     } catch {
       Promise.reject();
     }

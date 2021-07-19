@@ -28,10 +28,11 @@ let MessageService = class MessageService {
     async create(input) {
         try {
             input.messageId = uuid_1.v4();
-            let message = await this.Message.findOneAndUpdate({
-                platformType: input.platformType,
+            const message = await this.Message.findOneAndUpdate({
                 appId: input.appId,
-            }, input, { upsert: true, useFindAndModify: false });
+            }, input, { upsert: true, useFindAndModify: false, new: true });
+            if (!message)
+                return { ok: false, status: 400 };
             let payload = {
                 appId: message.appId,
                 title: message.title,
@@ -56,7 +57,16 @@ let MessageService = class MessageService {
     }
     async findMessage(appId) {
         try {
-            return await this.Message.findOne({ appId });
+            const message = await this.Message.findOne({ appId });
+            let payload = {
+                appId: message.appId,
+                title: message.title,
+                iconUrl: message.iconUrl,
+                message: message.message,
+                messageId: message.messageId,
+                pass: false,
+            };
+            return payload;
         }
         catch {
             Promise.reject();

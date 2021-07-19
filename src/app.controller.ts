@@ -7,6 +7,9 @@ export class AppController {
 
   @Get('v')
   public async Get() {
-    return { version: '2.0', desc: 'socket.disconnect on disconnect' };
+    return {
+      version: '2.1',
+      desc: 'socket.disconnect on disconnect and message update fixed',
+    };
   }
 }

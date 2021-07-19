@@ -17,7 +17,7 @@ __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.IsString(),
     class_validator_1.MinLength(1),
-    class_validator_1.MaxLength(200),
+    class_validator_1.MaxLength(100),
     __metadata("design:type", String)
 ], CreateMessageInput.prototype, "title", void 0);
 __decorate([
@@ -32,7 +32,7 @@ __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.IsString(),
     class_validator_1.MinLength(1),
-    class_validator_1.MaxLength(255),
+    class_validator_1.MaxLength(170),
     __metadata("design:type", String)
 ], CreateMessageInput.prototype, "message", void 0);
 __decorate([

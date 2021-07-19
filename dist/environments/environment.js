@@ -9,8 +9,7 @@ exports.Env = {
     JWT_API_SECRET_KEY: process.env.JWT_API_SECRET_KEY || '/soke$2jscrq98d7q9*d*e$$2jsad',
     CRYPTION_SECRET_KEY: process.env.CRYPTION_SECRET_KEY || '*/31s,31$%^&*',
     CRYPTION_API_KEY: process.env.CRYPTION_API_KEY || 'ad/ro./*$10',
-    MONGODB: 'mongodb+srv://phonix:node1234@cluster0-ttp8q.mongodb.net/DropProdDb?retryWrites=true&w=majority' ||
-        process.env.MONGODB,
+    MONGODB: process.env.MONGODB,
     AccessAuthTokenExpireTime: '15m',
     RefreshTokenExpireTime: '604800',
 };

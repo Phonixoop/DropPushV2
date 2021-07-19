@@ -17,7 +17,7 @@ export class CreateMessageInput {
   @IsNotEmpty()
   @IsString()
   @MinLength(1)
-  @MaxLength(200)
+  @MaxLength(100)
   title!: string;
 
   @IsNotEmpty()
@@ -30,7 +30,7 @@ export class CreateMessageInput {
   @IsNotEmpty()
   @IsString()
   @MinLength(1)
-  @MaxLength(255)
+  @MaxLength(170)
   message!: string;
 
   // @IsNotEmpty()

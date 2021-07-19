@@ -17,7 +17,7 @@ let AppController = class AppController {
         this.appService = appService;
     }
     async Get() {
-        return 'edit appId token should be change too bug fixed';
+        return { version: '2.0', desc: 'socket.disconnect on disconnect' };
     }
 };
 __decorate([

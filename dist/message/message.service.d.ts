@@ -20,6 +20,13 @@ export declare class MessageService {
     } & {
         deletedCount?: number;
     }>;
-    findMessage(appId: string): Promise<Message>;
+    findMessage(appId: string): Promise<{
+        appId: string;
+        title: string;
+        iconUrl: string;
+        message: string;
+        messageId: string;
+        pass: boolean;
+    }>;
 }
 export {};

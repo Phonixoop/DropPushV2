@@ -8,8 +8,8 @@ export class AppController {
   @Get('v')
   public async Get() {
     return {
-      version: '2.1',
-      desc: 'socket.disconnect on disconnect and message update fixed',
+      version: '3.0',
+      desc: 'panel admin added and real time user version updated',
     };
   }
 }

@@ -2,6 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsernameOrPasswordIncorrect = exports.UserAlreadyExistsError = void 0;
 class UserAlreadyExistsError extends Error {
+    message;
+    status;
+    ok;
+    data;
     constructor(user) {
         super();
         this.status = 561;
@@ -11,6 +15,10 @@ class UserAlreadyExistsError extends Error {
 }
 exports.UserAlreadyExistsError = UserAlreadyExistsError;
 class UsernameOrPasswordIncorrect extends Error {
+    message;
+    status;
+    ok;
+    data;
     constructor(user) {
         super();
         this.status = 561;

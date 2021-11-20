@@ -12,27 +12,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreatePublicApiInput = void 0;
 const class_validator_1 = require("class-validator");
 class CreatePublicApiInput {
+    title;
+    iconUrl;
+    message;
 }
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(1),
-    class_validator_1.MaxLength(200),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(1),
+    (0, class_validator_1.MaxLength)(200),
     __metadata("design:type", String)
 ], CreatePublicApiInput.prototype, "title", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(3),
-    class_validator_1.MaxLength(500),
-    class_validator_1.IsUrl({}, { message: 'icon url must be an URL address' }),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(3),
+    (0, class_validator_1.MaxLength)(500),
+    (0, class_validator_1.IsUrl)({}, { message: 'icon url must be an URL address' }),
     __metadata("design:type", String)
 ], CreatePublicApiInput.prototype, "iconUrl", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(1),
-    class_validator_1.MaxLength(255),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(1),
+    (0, class_validator_1.MaxLength)(255),
     __metadata("design:type", String)
 ], CreatePublicApiInput.prototype, "message", void 0);
 exports.CreatePublicApiInput = CreatePublicApiInput;

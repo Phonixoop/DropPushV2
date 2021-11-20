@@ -24,6 +24,8 @@ import { PublicMessageModule } from './public-message/public-message.module';
 
 import { RouterModule, Routes } from 'nest-router';
 import { APP_GUARD } from '@nestjs/core';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { SocketModule } from './socket/socket.module';
 require('dotenv').config();
 
 @Module({
@@ -39,15 +41,13 @@ require('dotenv').config();
     ProjectModule,
     PublicApiModule,
     PublicMessageModule,
-
+    SocketModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, 'public'),
     }),
     MongooseModule.forRoot(Env.MONGODB, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: true,
     }),
   ],
 

@@ -17,11 +17,13 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("mongoose");
 const platform_entity_1 = require("./entities/platform.entity");
 const mongoose_2 = require("@nestjs/mongoose");
-const socket_service_1 = require("../socket/socket.service");
+const socket_android_service_1 = require("../socket/socket.android.service");
 let PlatformService = class PlatformService {
-    constructor(Platform, socketService) {
+    Platform;
+    androidSocketService;
+    constructor(Platform, androidSocketService) {
         this.Platform = Platform;
-        this.socketService = socketService;
+        this.androidSocketService = androidSocketService;
     }
     async create(input, session) {
         try {
@@ -77,14 +79,14 @@ let PlatformService = class PlatformService {
         return await this.Platform.findOneAndDelete({ project: projectId }, { session });
     }
     async getOnlineUsers(appId) {
-        return await this.socketService.getOnlineUsers(appId);
+        return await this.androidSocketService.getOnlineUsers(appId);
     }
 };
 PlatformService = __decorate([
-    common_1.Injectable(),
-    __param(0, mongoose_2.InjectModel(platform_entity_1.Platform.name)),
+    (0, common_1.Injectable)(),
+    __param(0, (0, mongoose_2.InjectModel)(platform_entity_1.Platform.name)),
     __metadata("design:paramtypes", [mongoose_1.Model,
-        socket_service_1.SocketService])
+        socket_android_service_1.SocketAndroidService])
 ], PlatformService);
 exports.PlatformService = PlatformService;
 //# sourceMappingURL=platform.service.js.map

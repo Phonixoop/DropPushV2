@@ -13,29 +13,34 @@ exports.ProjectEntitySchema = exports.Project = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let Project = class Project extends mongoose_2.Document {
+    user;
+    nickName;
+    deviceToken;
+    createdAt;
+    updatedAt;
 };
 __decorate([
-    mongoose_1.Prop({ required: true, unique: false, ref: 'User' }),
+    (0, mongoose_1.Prop)({ required: true, unique: false, ref: 'User' }),
     __metadata("design:type", mongoose_2.Types.ObjectId)
 ], Project.prototype, "user", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true, unique: false, match: /^[a-z][a-z0-9]*$/i }),
+    (0, mongoose_1.Prop)({ required: true, unique: false, match: /^[a-z][a-z0-9]*$/i }),
     __metadata("design:type", String)
 ], Project.prototype, "nickName", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true, unique: true }),
+    (0, mongoose_1.Prop)({ required: true, unique: true }),
     __metadata("design:type", String)
 ], Project.prototype, "deviceToken", void 0);
 __decorate([
-    mongoose_1.Prop({ default: Date.now }),
+    (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
 ], Project.prototype, "createdAt", void 0);
 __decorate([
-    mongoose_1.Prop({ default: Date.now }),
+    (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
 ], Project.prototype, "updatedAt", void 0);
 Project = __decorate([
-    mongoose_1.Schema({ timestamps: true })
+    (0, mongoose_1.Schema)({ timestamps: true })
 ], Project);
 exports.Project = Project;
 exports.ProjectEntitySchema = mongoose_1.SchemaFactory.createForClass(Project);

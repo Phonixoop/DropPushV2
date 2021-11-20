@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { WebSocketServer } from '@nestjs/websockets';
 import { Server } from 'socket.io';
-import { SocketService } from 'src/socket/socket.service';
+import { SocketAndroidService } from 'src/socket/socket.android.service';
 import { forwardRef } from '@nestjs/common';
 import * as mongoose from 'mongoose';
 interface IReqResponse {
@@ -21,8 +21,8 @@ interface IReqResponse {
 export class MessageService {
   constructor(
     @InjectModel(Message.name) private readonly Message: Model<Message>,
-    @Inject(forwardRef(() => SocketService))
-    private readonly socketService: SocketService,
+    @Inject(forwardRef(() => SocketAndroidService))
+    private readonly socketService: SocketAndroidService,
   ) {}
 
   public async create(input: CreateMessageInput): Promise<IReqResponse> {

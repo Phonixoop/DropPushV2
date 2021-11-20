@@ -1,0 +1,1 @@
+//# sourceMappingURL=extended.adapter.js.map

@@ -6,4 +6,4 @@ export declare class Project extends Document {
     createdAt: Date;
     updatedAt: Date;
 }
-export declare const ProjectEntitySchema: import("mongoose").Schema<Project, Model<any, any, any>, undefined>;
+export declare const ProjectEntitySchema: import("mongoose").Schema<Project, Model<Project, any, any, any>, {}>;

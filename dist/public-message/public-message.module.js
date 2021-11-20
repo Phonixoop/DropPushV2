@@ -16,9 +16,9 @@ const common_2 = require("@nestjs/common");
 let PublicMessageModule = class PublicMessageModule {
 };
 PublicMessageModule = __decorate([
-    common_1.Module({
+    (0, common_1.Module)({
         imports: [
-            common_2.forwardRef(() => socket_module_1.SocketModule),
+            (0, common_2.forwardRef)(() => socket_module_1.SocketModule),
             mongoose_1.MongooseModule.forFeature([
                 { name: public_message_entity_1.PublicMessage.name, schema: public_message_entity_1.PublicMessageEntitySchema },
             ]),

@@ -13,6 +13,7 @@ exports.PublicApiService = void 0;
 const common_1 = require("@nestjs/common");
 const public_message_service_1 = require("../public-message/public-message.service");
 let PublicApiService = class PublicApiService {
+    publicMessageService;
     constructor(publicMessageService) {
         this.publicMessageService = publicMessageService;
     }
@@ -32,7 +33,7 @@ let PublicApiService = class PublicApiService {
     }
 };
 PublicApiService = __decorate([
-    common_1.Injectable(),
+    (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [public_message_service_1.PublicMessageService])
 ], PublicApiService);
 exports.PublicApiService = PublicApiService;

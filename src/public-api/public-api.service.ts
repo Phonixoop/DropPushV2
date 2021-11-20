@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PublicMessageService } from 'src/public-message/public-message.service';
-import { SocketService } from '../socket/socket.service';
+import { SocketAndroidService } from '../socket/socket.android.service';
 import { CreatePublicApiInput } from './dto/create-public-api.input';
 import { CreatePublicMessageInput } from './../public-message/dto/create-public-message.dto';
 

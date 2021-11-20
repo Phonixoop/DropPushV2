@@ -15,45 +15,54 @@ const mongoose_2 = require("mongoose");
 const environment_1 = require("../../environments/environment");
 const project_entity_1 = require("../../project/entities/project.entity");
 let Message = class Message extends mongoose_2.Document {
+    title;
+    iconUrl;
+    message;
+    platformType;
+    appId;
+    expireDate;
+    messageId;
+    createdAt;
+    updatedAt;
 };
 __decorate([
-    mongoose_1.Prop({ required: true }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Message.prototype, "title", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Message.prototype, "iconUrl", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Message.prototype, "message", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true, default: 'android' }),
+    (0, mongoose_1.Prop)({ required: true, default: 'android' }),
     __metadata("design:type", String)
 ], Message.prototype, "platformType", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true, unique: true, index: true }),
+    (0, mongoose_1.Prop)({ required: true, unique: true, index: true }),
     __metadata("design:type", String)
 ], Message.prototype, "appId", void 0);
 __decorate([
-    mongoose_1.Prop({ required: false }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Date)
 ], Message.prototype, "expireDate", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true, unique: true, index: true }),
+    (0, mongoose_1.Prop)({ required: true, unique: true, index: true }),
     __metadata("design:type", String)
 ], Message.prototype, "messageId", void 0);
 __decorate([
-    mongoose_1.Prop({ default: Date.now }),
+    (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
 ], Message.prototype, "createdAt", void 0);
 __decorate([
-    mongoose_1.Prop({ default: Date.now }),
+    (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
 ], Message.prototype, "updatedAt", void 0);
 Message = __decorate([
-    mongoose_1.Schema({ timestamps: true })
+    (0, mongoose_1.Schema)({ timestamps: true })
 ], Message);
 exports.Message = Message;
 exports.MessageEntitySchema = mongoose_1.SchemaFactory.createForClass(Message);

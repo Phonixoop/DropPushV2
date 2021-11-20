@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { CreatePublicMessageInput } from './dto/create-public-message.dto';
 import { PublicMessage } from './entities/public-message.entity';
 import { v4 as uuidv4 } from 'uuid';
-import { SocketService } from 'src/socket/socket.service';
+import { SocketAndroidService } from 'src/socket/socket.android.service';
 import { forwardRef } from '@nestjs/common';
 
 @Injectable()
@@ -12,8 +12,8 @@ export class PublicMessageService {
   constructor(
     @InjectModel(PublicMessage.name)
     private readonly PublicMessage: Model<PublicMessage>,
-    @Inject(forwardRef(() => SocketService))
-    private readonly socketService: SocketService,
+    @Inject(forwardRef(() => SocketAndroidService))
+    private readonly socketService: SocketAndroidService,
   ) {}
 
   public async createAndPush(input: CreatePublicMessageInput): Promise<string> {

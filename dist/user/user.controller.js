@@ -17,7 +17,9 @@ const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
 const create_user_input_1 = require("./dto/create-user.input");
 const login_user_input_1 = require("./dto/login-user.input");
+const model_1 = require("../model");
 let UserController = class UserController {
+    userService;
     constructor(userService) {
         this.userService = userService;
     }
@@ -66,37 +68,39 @@ let UserController = class UserController {
     }
 };
 __decorate([
-    common_1.Post('/signup'),
-    __param(0, common_1.Body()),
-    __param(1, common_1.Res()),
+    (0, common_1.Post)('/signup'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_input_1.CreateUserInput, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "create", null);
 __decorate([
-    common_1.Post('/login'),
-    __param(0, common_1.Body()),
-    __param(1, common_1.Res()),
+    (0, common_1.Post)('/login'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [login_user_input_1.LoginUserInput, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "login", null);
 __decorate([
-    common_1.Get('me/access-token'),
-    __param(0, common_1.Req()), __param(1, common_1.Res()),
+    (0, common_1.Get)('me/access-token'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "acessToken", null);
 __decorate([
-    common_1.Post('me/logout'),
-    __param(0, common_1.Req()), __param(1, common_1.Res()),
+    (0, common_1.Post)('me/logout'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "logout", null);
 UserController = __decorate([
-    common_1.Controller('api/v1/user'),
+    (0, common_1.Controller)('api/v1/user'),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserController);
 exports.UserController = UserController;

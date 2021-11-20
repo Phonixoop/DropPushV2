@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const message_service_1 = require("./message.service");
 const create_message_input_1 = require("./dto/create-message.input");
 let MessageController = class MessageController {
+    messageService;
     constructor(messageService) {
         this.messageService = messageService;
     }
@@ -35,16 +36,16 @@ let MessageController = class MessageController {
     }
 };
 __decorate([
-    common_1.Post('addMessage'),
-    __param(0, common_1.Body()),
-    __param(1, common_1.Res()),
-    __param(2, common_1.Req()),
+    (0, common_1.Post)('addMessage'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
+    __param(2, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_message_input_1.CreateMessageInput, Object, Object]),
     __metadata("design:returntype", Promise)
 ], MessageController.prototype, "create", null);
 MessageController = __decorate([
-    common_1.Controller('api/v1/message'),
+    (0, common_1.Controller)('api/v1/message'),
     __metadata("design:paramtypes", [message_service_1.MessageService])
 ], MessageController);
 exports.MessageController = MessageController;

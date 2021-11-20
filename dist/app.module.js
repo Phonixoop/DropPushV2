@@ -25,6 +25,7 @@ const public_api_module_1 = require("./public-api/public-api.module");
 const environment_1 = require("./environments/environment");
 const public_message_module_1 = require("./public-message/public-message.module");
 const core_1 = require("@nestjs/core");
+const socket_module_1 = require("./socket/socket.module");
 require('dotenv').config();
 let AppModule = class AppModule {
     constructor() {
@@ -33,7 +34,7 @@ let AppModule = class AppModule {
     }
 };
 AppModule = __decorate([
-    common_1.Module({
+    (0, common_1.Module)({
         imports: [
             throttler_1.ThrottlerModule.forRoot({
                 ttl: 60,
@@ -45,14 +46,13 @@ AppModule = __decorate([
             project_module_1.ProjectModule,
             public_api_module_1.PublicApiModule,
             public_message_module_1.PublicMessageModule,
+            socket_module_1.SocketModule,
             serve_static_module_1.ServeStaticModule.forRoot({
-                rootPath: path_1.join(__dirname, 'public'),
+                rootPath: (0, path_1.join)(__dirname, 'public'),
             }),
             mongoose_1.MongooseModule.forRoot(environment_1.Env.MONGODB, {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
-                useCreateIndex: true,
-                useFindAndModify: true,
             }),
         ],
         controllers: [app_controller_1.AppController],

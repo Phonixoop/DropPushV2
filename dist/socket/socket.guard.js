@@ -23,7 +23,7 @@ let WsThrottlerGuard = class WsThrottlerGuard extends throttler_1.ThrottlerGuard
     }
 };
 WsThrottlerGuard = __decorate([
-    common_1.Injectable()
+    (0, common_1.Injectable)()
 ], WsThrottlerGuard);
 exports.WsThrottlerGuard = WsThrottlerGuard;
 //# sourceMappingURL=socket.guard.js.map

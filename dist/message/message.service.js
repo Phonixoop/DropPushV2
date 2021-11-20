@@ -18,16 +18,18 @@ const mongoose_1 = require("mongoose");
 const message_entity_1 = require("./entities/message.entity");
 const mongoose_2 = require("@nestjs/mongoose");
 const uuid_1 = require("uuid");
-const socket_service_1 = require("../socket/socket.service");
+const socket_android_service_1 = require("../socket/socket.android.service");
 const common_2 = require("@nestjs/common");
 let MessageService = class MessageService {
+    Message;
+    socketService;
     constructor(Message, socketService) {
         this.Message = Message;
         this.socketService = socketService;
     }
     async create(input) {
         try {
-            input.messageId = uuid_1.v4();
+            input.messageId = (0, uuid_1.v4)();
             const message = await this.Message.findOneAndUpdate({
                 appId: input.appId,
             }, input, { upsert: true, useFindAndModify: false, new: true });
@@ -74,11 +76,11 @@ let MessageService = class MessageService {
     }
 };
 MessageService = __decorate([
-    common_1.Injectable(),
-    __param(0, mongoose_2.InjectModel(message_entity_1.Message.name)),
-    __param(1, common_1.Inject(common_2.forwardRef(() => socket_service_1.SocketService))),
+    (0, common_1.Injectable)(),
+    __param(0, (0, mongoose_2.InjectModel)(message_entity_1.Message.name)),
+    __param(1, (0, common_1.Inject)((0, common_2.forwardRef)(() => socket_android_service_1.SocketAndroidService))),
     __metadata("design:paramtypes", [mongoose_1.Model,
-        socket_service_1.SocketService])
+        socket_android_service_1.SocketAndroidService])
 ], MessageService);
 exports.MessageService = MessageService;
 //# sourceMappingURL=message.service.js.map

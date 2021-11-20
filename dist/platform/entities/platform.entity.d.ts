@@ -7,4 +7,4 @@ export declare class Platform extends Document {
     createdAt: Date;
     updatedAt: Date;
 }
-export declare const PlatformEntitySchema: import("mongoose").Schema<Platform, Model<any, any, any>, undefined>;
+export declare const PlatformEntitySchema: import("mongoose").Schema<Platform, Model<Platform, any, any, any>, {}>;

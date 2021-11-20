@@ -3,6 +3,7 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -15,18 +16,14 @@ import {
   UsernameOrPasswordIncorrect,
 } from './errors/error';
 import { Response } from 'express';
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
+
 import { Env } from './../environments/environment';
 import { LoginUserInput } from './dto/login-user.input';
 import * as mongoose from 'mongoose';
+import { APIResponse } from 'src/model';
 
-interface IReqResponse {
-  status: number;
-  ok: boolean;
-  message?: string;
-  data?: any;
-}
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private readonly User: Model<User>) {}
@@ -34,8 +31,8 @@ export class UserService {
   public async create(
     input: CreateUserInput,
     res: Response,
-  ): Promise<IReqResponse> {
-    let result: IReqResponse;
+  ): Promise<APIResponse> {
+    let result: APIResponse;
 
     try {
       const userExistence = await this.User.findOne({
@@ -51,7 +48,9 @@ export class UserService {
       const refreshToken = await this.GenerateRefreshAuthToken(user);
       const accessToken = await this.GenerateRefreshAuthToken(user);
       user.token = refreshToken;
+
       await user.save();
+
       res.cookie('token', refreshToken, {
         expires: new Date(Date.now() + 60000000),
         secure: true, // set to true if your using https
@@ -63,22 +62,22 @@ export class UserService {
         status: 201,
         ok: true,
       };
+      return result;
     } catch (error) {
       result = {
         status: 400,
         ok: false,
-        message: error,
       };
+      return result;
     }
-
-    return Promise.resolve(result);
   }
 
   public async login(
     input: LoginUserInput,
     res: Response,
-  ): Promise<IReqResponse> {
-    let result: IReqResponse;
+  ): Promise<APIResponse> {
+    let result: APIResponse;
+
     try {
       const user = await this.FindByCredentials(input.email, input.password);
       if (!user) {
@@ -99,6 +98,7 @@ export class UserService {
         status: 201,
         ok: true,
       };
+
       return result;
     } catch (e) {
       result = {
@@ -202,7 +202,7 @@ export class UserService {
   }
 
   public async EncodePassword(user: User): Promise<string> {
-    let costFactor = 10;
+    const costFactor = 10;
     return await bcrypt.hash(user.password, costFactor);
   }
   // end

@@ -13,21 +13,25 @@ exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
 let AppController = class AppController {
+    appService;
     constructor(appService) {
         this.appService = appService;
     }
     async Get() {
-        return { version: '2.0', desc: 'socket.disconnect on disconnect' };
+        return {
+            version: '2.1',
+            desc: 'socket.disconnect on disconnect and message update fixed',
+        };
     }
 };
 __decorate([
-    common_1.Get('v'),
+    (0, common_1.Get)('v'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "Get", null);
 AppController = __decorate([
-    common_1.Controller(),
+    (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])
 ], AppController);
 exports.AppController = AppController;

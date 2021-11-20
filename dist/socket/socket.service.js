@@ -8,116 +8,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SocketService = void 0;
 const common_1 = require("@nestjs/common");
-const common_2 = require("@nestjs/common");
-const websockets_1 = require("@nestjs/websockets");
-const socket_io_1 = require("socket.io");
-const public_message_service_1 = require("../public-message/public-message.service");
-const environment_1 = require("../environments/environment");
-const crypt_1 = require("../helpers/crypt");
-const message_service_1 = require("../message/message.service");
-require('dotenv').config();
 let SocketService = class SocketService {
-    constructor(messageService) {
-        this.messageService = messageService;
-        this.maxListeners = 100000;
-    }
-    async afterInit(server) {
-        this.server.use(async (socket, next) => {
-            try {
-                let token = socket.handshake.query.token.toString();
-                const decoded = await crypt_1.Cryption.decrypt(token, environment_1.Env.CRYPTION_SECRET_KEY);
-                socket.handshake.headers.appId = decoded.data;
-                this.devices = Object.keys(socket.nsp.adapter.sids);
-                if (this.devices === undefined ||
-                    this.devices.length >= this.maxListeners) {
-                    return;
-                }
-                next();
-            }
-            catch {
-                return;
-            }
-        });
-    }
-    handleConnection(client) {
-        client.emit('connected', { ok: true });
-    }
-    handleDisconnect(client) {
-        client.disconnect();
-        client.removeAllListeners();
-        client = null;
-    }
-    async JoinRoom(client, room) {
-        if (room !== client.handshake.headers.appId)
-            return;
-        client.join(room);
-        client.emit('checkRoom', 'you joined');
-    }
-    async CheckMessage(client, messageId) {
-        const result = await this.messageService.findMessage(client.handshake.headers.appId.toString());
-        if (result.messageId !== messageId) {
-            this.server.in(result.appId).emit('getMessage', result);
-        }
-    }
-    async PushMessage(payload, room) {
-        try {
-            payload.pass = false;
-            this.server.in(room).emit('getMessage', payload);
-            Promise.resolve();
-        }
-        catch {
-            try {
-                Promise.reject();
-            }
-            catch { }
-        }
-    }
-    async PushMessageToAll(payload) {
-        try {
-            payload.pass = true;
-            delete payload.token;
-            this.server.emit('getMessage', payload);
-            return 'Your Message has been sent';
-        }
-        catch (e) {
-            return undefined;
-        }
-    }
-    async getOnlineUsers(room) {
-        let onlineUsers = this.server.local['adapter'].rooms[room];
-        if (onlineUsers === null || onlineUsers === undefined)
-            return Promise.resolve(0);
-        onlineUsers = Object.entries(onlineUsers)[1][1];
-        return Promise.resolve(onlineUsers);
-    }
+    constructor() { }
+    io;
 };
-__decorate([
-    websockets_1.WebSocketServer(),
-    __metadata("design:type", socket_io_1.Server)
-], SocketService.prototype, "server", void 0);
-__decorate([
-    websockets_1.SubscribeMessage('joinRoom'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [socket_io_1.Socket, String]),
-    __metadata("design:returntype", Promise)
-], SocketService.prototype, "JoinRoom", null);
-__decorate([
-    websockets_1.SubscribeMessage('checkMessage'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [socket_io_1.Socket, String]),
-    __metadata("design:returntype", Promise)
-], SocketService.prototype, "CheckMessage", null);
 SocketService = __decorate([
-    common_1.Injectable(),
-    websockets_1.WebSocketGateway({ namespace: 'android' }),
-    __param(0, common_1.Inject(common_2.forwardRef(() => message_service_1.MessageService))),
-    __metadata("design:paramtypes", [message_service_1.MessageService])
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [])
 ], SocketService);
 exports.SocketService = SocketService;
 //# sourceMappingURL=socket.service.js.map

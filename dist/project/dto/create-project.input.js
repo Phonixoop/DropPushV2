@@ -12,28 +12,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateProjectInput = void 0;
 const class_validator_1 = require("class-validator");
 class CreateProjectInput {
+    nickName;
+    platformType;
+    appId;
 }
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(3),
-    class_validator_1.MaxLength(255),
-    class_validator_1.Matches(/^[a-z][a-z0-9]*$/i),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(3),
+    (0, class_validator_1.MaxLength)(255),
+    (0, class_validator_1.Matches)(/^[a-z][a-z0-9]*$/i),
     __metadata("design:type", String)
 ], CreateProjectInput.prototype, "nickName", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(3),
-    class_validator_1.MaxLength(255),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(3),
+    (0, class_validator_1.MaxLength)(255),
     __metadata("design:type", String)
 ], CreateProjectInput.prototype, "platformType", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(3),
-    class_validator_1.MaxLength(255),
-    class_validator_1.Matches(/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(3),
+    (0, class_validator_1.MaxLength)(255),
+    (0, class_validator_1.Matches)(/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i),
     __metadata("design:type", String)
 ], CreateProjectInput.prototype, "appId", void 0);
 exports.CreateProjectInput = CreateProjectInput;

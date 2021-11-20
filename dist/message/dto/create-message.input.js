@@ -12,56 +12,63 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateMessageInput = void 0;
 const class_validator_1 = require("class-validator");
 class CreateMessageInput {
+    title;
+    iconUrl;
+    message;
+    platformType;
+    appId;
+    messageId;
+    expireDate;
 }
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(1),
-    class_validator_1.MaxLength(100),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(1),
+    (0, class_validator_1.MaxLength)(100),
     __metadata("design:type", String)
 ], CreateMessageInput.prototype, "title", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(3),
-    class_validator_1.MaxLength(500),
-    class_validator_1.IsUrl({}, { message: 'icon url must be an URL address' }),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(3),
+    (0, class_validator_1.MaxLength)(500),
+    (0, class_validator_1.IsUrl)({}, { message: 'icon url must be an URL address' }),
     __metadata("design:type", String)
 ], CreateMessageInput.prototype, "iconUrl", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(1),
-    class_validator_1.MaxLength(170),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(1),
+    (0, class_validator_1.MaxLength)(170),
     __metadata("design:type", String)
 ], CreateMessageInput.prototype, "message", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(3),
-    class_validator_1.MaxLength(255),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(3),
+    (0, class_validator_1.MaxLength)(255),
     __metadata("design:type", String)
 ], CreateMessageInput.prototype, "platformType", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(3),
-    class_validator_1.MaxLength(255),
-    class_validator_1.Matches(/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(3),
+    (0, class_validator_1.MaxLength)(255),
+    (0, class_validator_1.Matches)(/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i),
     __metadata("design:type", String)
 ], CreateMessageInput.prototype, "appId", void 0);
 __decorate([
-    class_validator_1.IsOptional(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(3),
-    class_validator_1.MaxLength(255),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(3),
+    (0, class_validator_1.MaxLength)(255),
     __metadata("design:type", String)
 ], CreateMessageInput.prototype, "messageId", void 0);
 __decorate([
-    class_validator_1.IsOptional(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(3),
-    class_validator_1.MaxLength(255),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(3),
+    (0, class_validator_1.MaxLength)(255),
     __metadata("design:type", Date)
 ], CreateMessageInput.prototype, "expireDate", void 0);
 exports.CreateMessageInput = CreateMessageInput;

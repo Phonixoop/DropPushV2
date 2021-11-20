@@ -1,13 +1,36 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ServeStaticModule } from '@nestjs/serve-static/dist/serve-static.module';
-const cors = require('cors');
-import path, { join } from 'path';
+
 import { ValidationPipe } from '@nestjs/common';
-import { Request } from 'express';
-require('dotenv').config();
-const cookieParser = require('cookie-parser');
-const fs = require('fs');
+import { Request, Response, NextFunction } from 'express';
+import { Server, ServerOptions, Socket } from 'socket.io';
+import * as cookieParser from 'cookie-parser';
+import { instrument } from '@socket.io/admin-ui';
+import { IoAdapter } from '@nestjs/platform-socket.io';
+import * as csurf from 'csurf';
+import * as helmet from 'helmet';
+const cors = require('cors');
+export class SocketAdapter extends IoAdapter {
+  createIOServer(
+    port: number,
+    options?: ServerOptions & {
+      namespace?: string;
+      server?: any;
+    },
+  ) {
+    const server = super.createIOServer(port, {
+      ...options,
+      cors: {
+        origin: 'http://localhost:4200',
+        methods: ['GET', 'POST'],
+        transports: ['websocket', 'polling'],
+        credentials: true,
+      },
+      allowEIO3: true,
+    });
+    return server;
+  }
+}
 
 // process.on('uncaughtException', (err) => {
 //   try {
@@ -15,34 +38,57 @@ const fs = require('fs');
 //     fs.writeFileSync(`${__dirname}\DropLog.txt`, err);
 //   } catch {}
 // });
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.use(function (req, res, next) {
-    res.header(
-      'Access-Control-Allow-Methods',
-      'GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE',
-    );
+  // app.useWebSocketAdapter(
+  //   new MyIoAdapter(
+  //     // Cast to any to get around httpServer being private
+  //     (<any>app).httpServer,
+  //   ),
+  // );
 
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept, x-access-token',
-    );
+  // app.use(function (req, res: Response, next: NextFunction) {
+  //   res.header(
+  //     'Access-Control-Allow-Methods',
+  //     'GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE',
+  //   );
 
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Expose-Headers', 'x-access-token');
+  //   res.header(
+  //     'Access-Control-Allow-Headers',
+  //     'Origin, X-Requested-With, Content-Type, Accept, x-access-token',
+  //   );
+  //   //res.header('Access-Control-Allow-Origin', 'http://localhost:4200/');
+  //   res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+  //   res.header('Access-Control-Allow-Credentials', 'true');
+  //   res.header('Access-Control-Expose-Headers', 'x-access-token');
 
-    next();
-  });
+  //   next();
+  // });
+  // app.use(helmet());
+  // app.use(csurf());
 
-  let allowList = ['http://localhost:4200', '/api/v1/push'];
+  const whiteList = [
+    'https://admin.socket.io',
+    'http://localhost:4200',
+    '/api/v1/push',
+  ];
+
   app.enableCors(function (req: Request, callback) {
     let corsOptions;
     if (
-      allowList.indexOf(req.header('Origin')) !== -1 ||
-      allowList.indexOf(req.path) !== -1
+      whiteList.indexOf(req.header('Origin')) !== -1 ||
+      whiteList.indexOf(req.path) !== -1
     ) {
-      corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+      corsOptions = {
+        origin: true,
+        credentials: true,
+        methods: 'GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE',
+        allowedHeaders:
+          'Origin, X-Requested-With, Content-Type, Accept, x-access-token',
+        exposedHeaders: 'x-access-token',
+      }; // reflect (enable) the requested origin in the CORS response
     } else {
       corsOptions = { origin: false }; // disable CORS for this request
     }
@@ -62,7 +108,11 @@ async function bootstrap() {
   //   );
   // }, 1000);
 
+  app.useWebSocketAdapter(new SocketAdapter(app));
+
   await app.listen(process.env.PORT || 3000);
 }
 
 bootstrap();
+
+export default SocketAdapter;

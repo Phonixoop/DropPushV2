@@ -48,7 +48,7 @@ export class ProjectService {
         const projectInput = new this.Project({
           ...input,
           deviceToken: deviceToken,
-          user: Types.ObjectId(userId),
+          user: new mongoose.Types.ObjectId(userId),
         });
 
         const project = await projectInput.save({ session });
@@ -57,7 +57,7 @@ export class ProjectService {
           appId: input.appId,
           platformType: input.platformType,
           project: project._id,
-          user: Types.ObjectId(userId),
+          user: new mongoose.Types.ObjectId(userId),
         };
 
         await this.platformService.create(platformcreateInput, session);
@@ -80,7 +80,9 @@ export class ProjectService {
 
   public async projects(userId: string) {
     try {
-      const data = await this.platformService.find(Types.ObjectId(userId));
+      const data = await this.platformService.find(
+        new mongoose.Types.ObjectId(userId),
+      );
       return { status: 200, ok: true, data: data };
     } catch {
       return { status: 400, ok: false };
@@ -94,7 +96,7 @@ export class ProjectService {
     try {
       session.startTransaction();
       const platform = await this.platformService.deleteOnePlatform(
-        Types.ObjectId(projectId),
+        new mongoose.Types.ObjectId(projectId),
         session,
       );
       const project = await this.Project.deleteOne(
@@ -126,7 +128,7 @@ export class ProjectService {
       );
 
       const prj = await this.Project.findOne({
-        _id: Types.ObjectId(projectId),
+        _id: new mongoose.Types.ObjectId(projectId),
       });
 
       prj.deviceToken = deviceToken;
@@ -149,7 +151,7 @@ export class ProjectService {
         await this.connection.startSession();
       try {
         session.startTransaction();
-        const id = Types.ObjectId(projectId);
+        const id = new mongoose.Types.ObjectId(projectId);
         let project: Project, platform: Platform;
         project = await this.Project.findOne({ _id: id }, null, { session });
         if (nickName) {

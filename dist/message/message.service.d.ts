@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { CreateMessageInput } from './dto/create-message.input';
 import { Message } from './entities/message.entity';
-import { SocketService } from 'src/socket/socket.service';
+import { SocketAndroidService } from 'src/socket/socket.android.service';
 import * as mongoose from 'mongoose';
 interface IReqResponse {
     status: number;
@@ -12,14 +12,9 @@ interface IReqResponse {
 export declare class MessageService {
     private readonly Message;
     private readonly socketService;
-    constructor(Message: Model<Message>, socketService: SocketService);
+    constructor(Message: Model<Message>, socketService: SocketAndroidService);
     create(input: CreateMessageInput): Promise<IReqResponse>;
-    DeleteAllMessageByAppId(appId: string, session: mongoose.ClientSession): Promise<{
-        ok?: number;
-        n?: number;
-    } & {
-        deletedCount?: number;
-    }>;
+    DeleteAllMessageByAppId(appId: string, session: mongoose.ClientSession): Promise<import("mongodb").DeleteResult>;
     findMessage(appId: string): Promise<{
         appId: string;
         title: string;

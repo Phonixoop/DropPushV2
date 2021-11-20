@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const project_service_1 = require("./project.service");
 const create_project_input_1 = require("./dto/create-project.input");
 let ProjectController = class ProjectController {
+    projectService;
     constructor(projectService) {
         this.projectService = projectService;
     }
@@ -90,52 +91,53 @@ let ProjectController = class ProjectController {
     }
 };
 __decorate([
-    common_1.Post('addProject'),
-    __param(0, common_1.Body()),
-    __param(1, common_1.Res()),
-    __param(2, common_1.Req()),
+    (0, common_1.Post)('addProject'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
+    __param(2, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_project_input_1.CreateProjectInput, Object, Object]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "createProject", null);
 __decorate([
-    common_1.Post('delete'),
-    __param(0, common_1.Body('projectId')),
-    __param(1, common_1.Res()),
-    __param(2, common_1.Req()),
+    (0, common_1.Post)('delete'),
+    __param(0, (0, common_1.Body)('projectId')),
+    __param(1, (0, common_1.Res)()),
+    __param(2, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object, Object]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "deleteProject", null);
 __decorate([
-    common_1.Post('projects'),
-    __param(0, common_1.Res()), __param(1, common_1.Req()),
+    (0, common_1.Post)('projects'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "projects", null);
 __decorate([
-    common_1.Post('edit'),
-    __param(0, common_1.Res()),
-    __param(1, common_1.Req()),
-    __param(2, common_1.Body('projectId')),
-    __param(3, common_1.Body('nickName')),
-    __param(4, common_1.Body('appId')),
+    (0, common_1.Post)('edit'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Body)('projectId')),
+    __param(3, (0, common_1.Body)('nickName')),
+    __param(4, (0, common_1.Body)('appId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, String, String, String]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "edit", null);
 __decorate([
-    common_1.Post('revokeToken'),
-    __param(0, common_1.Res()),
-    __param(1, common_1.Req()),
-    __param(2, common_1.Body()),
+    (0, common_1.Post)('revokeToken'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "revokeToken", null);
 ProjectController = __decorate([
-    common_1.Controller('api/v1/project'),
+    (0, common_1.Controller)('api/v1/project'),
     __metadata("design:paramtypes", [project_service_1.ProjectService])
 ], ProjectController);
 exports.ProjectController = ProjectController;

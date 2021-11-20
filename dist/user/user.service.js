@@ -18,10 +18,12 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const user_entity_1 = require("./entities/user.entity");
 const error_1 = require("./errors/error");
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const environment_1 = require("./../environments/environment");
+const model_1 = require("../model");
 let UserService = class UserService {
+    User;
     constructor(User) {
         this.User = User;
     }
@@ -50,15 +52,15 @@ let UserService = class UserService {
                 status: 201,
                 ok: true,
             };
+            return result;
         }
         catch (error) {
             result = {
                 status: 400,
                 ok: false,
-                message: error,
             };
+            return result;
         }
-        return Promise.resolve(result);
     }
     async login(input, res) {
         let result;
@@ -166,13 +168,13 @@ let UserService = class UserService {
         });
     }
     async EncodePassword(user) {
-        let costFactor = 10;
+        const costFactor = 10;
         return await bcrypt.hash(user.password, costFactor);
     }
 };
 UserService = __decorate([
-    common_1.Injectable(),
-    __param(0, mongoose_1.InjectModel(user_entity_1.User.name)),
+    (0, common_1.Injectable)(),
+    __param(0, (0, mongoose_1.InjectModel)(user_entity_1.User.name)),
     __metadata("design:paramtypes", [mongoose_2.Model])
 ], UserService);
 exports.UserService = UserService;

@@ -21,10 +21,10 @@ let PlatformModule = class PlatformModule {
     }
 };
 PlatformModule = __decorate([
-    common_1.Module({
+    (0, common_1.Module)({
         imports: [
             user_module_1.UserModule,
-            common_1.forwardRef(() => socket_module_1.SocketModule),
+            (0, common_1.forwardRef)(() => socket_module_1.SocketModule),
             mongoose_1.MongooseModule.forFeature([
                 { name: platform_entity_1.Platform.name, schema: platform_entity_1.PlatformEntitySchema },
             ]),

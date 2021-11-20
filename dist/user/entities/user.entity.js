@@ -15,6 +15,12 @@ const mongoose_2 = require("mongoose");
 const environment_1 = require("../../environments/environment");
 const jsonwebtoken_1 = require("jsonwebtoken");
 let User = class User extends mongoose_2.Document {
+    username;
+    password;
+    email;
+    token;
+    createdAt;
+    updatedAt;
     async GenerateRefreshAuthToken(user) {
         return new Promise((resolve, reject) => {
             const expiration = environment_1.Env.JWT_USER_SESSION_REFRESH_SECRET;
@@ -45,31 +51,31 @@ let User = class User extends mongoose_2.Document {
     }
 };
 __decorate([
-    mongoose_1.Prop({ required: false }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true, unique: true, index: true }),
+    (0, mongoose_1.Prop)({ required: true, unique: true, index: true }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    mongoose_1.Prop({ required: false }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], User.prototype, "token", void 0);
 __decorate([
-    mongoose_1.Prop({ default: Date.now }),
+    (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
 ], User.prototype, "createdAt", void 0);
 __decorate([
-    mongoose_1.Prop({ default: Date.now }),
+    (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
 ], User.prototype, "updatedAt", void 0);
 User = __decorate([
-    mongoose_1.Schema({ timestamps: true })
+    (0, mongoose_1.Schema)({ timestamps: true })
 ], User);
 exports.User = User;
 exports.UserEntitySchema = mongoose_1.SchemaFactory.createForClass(User);

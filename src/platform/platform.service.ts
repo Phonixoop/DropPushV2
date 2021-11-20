@@ -5,7 +5,7 @@ import { Platform } from './entities/platform.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Request } from 'express';
-import { SocketService } from 'src/socket/socket.service';
+import { SocketAndroidService } from 'src/socket/socket.android.service';
 interface IReqResponse {
   ok: boolean;
   appId?: string;
@@ -19,7 +19,7 @@ interface IProject {
 export class PlatformService {
   constructor(
     @InjectModel(Platform.name) private readonly Platform: Model<Platform>,
-    private readonly socketService: SocketService,
+    private readonly androidSocketService: SocketAndroidService,
   ) {}
 
   public async create(
@@ -101,6 +101,6 @@ export class PlatformService {
   }
 
   public async getOnlineUsers(appId: string) {
-    return await this.socketService.getOnlineUsers(appId);
+    return await this.androidSocketService.getOnlineUsers(appId);
   }
 }

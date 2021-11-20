@@ -12,6 +12,7 @@ import {
   Res,
   Req,
   UseGuards,
+  Logger,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserInput } from './dto/create-user.input';
@@ -20,7 +21,8 @@ import { Response, Request } from 'express';
 import { UserAlreadyExistsError } from './errors/error';
 import { LoginUserInput } from './dto/login-user.input';
 import { User } from './entities/user.entity';
-import console from 'console';
+import console, { Console } from 'console';
+import { APIResponse } from 'src/model';
 
 @Controller('api/v1/user')
 export class UserController {
@@ -32,7 +34,7 @@ export class UserController {
     @Res() res: Response,
   ) {
     const result = await this.userService.create(createUserInput, res);
-    const payload = {
+    const payload: APIResponse = {
       ok: result.ok,
       message: result.message,
       data: result.data,

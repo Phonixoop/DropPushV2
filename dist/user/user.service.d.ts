@@ -4,26 +4,26 @@ import { User } from './entities/user.entity';
 import { Response } from 'express';
 import { LoginUserInput } from './dto/login-user.input';
 import * as mongoose from 'mongoose';
-interface IReqResponse {
-    status: number;
-    ok: boolean;
-    message?: string;
-    data?: any;
-}
+import { APIResponse } from 'src/model';
 export declare class UserService {
     private readonly User;
     constructor(User: Model<User>);
-    create(input: CreateUserInput, res: Response): Promise<IReqResponse>;
-    login(input: LoginUserInput, res: Response): Promise<IReqResponse>;
+    create(input: CreateUserInput, res: Response): Promise<APIResponse>;
+    login(input: LoginUserInput, res: Response): Promise<APIResponse>;
     logout(user: User, res: Response): Promise<{
         ok: boolean;
         status: number;
     }>;
-    FindByCredentials(email: string, password: string): Promise<User>;
-    FindByIdAndToken(_id: string, token: string): Promise<User>;
-    FindById(_id: string, session: mongoose.ClientSession): Promise<User>;
+    FindByCredentials(email: string, password: string): Promise<User & {
+        _id: any;
+    }>;
+    FindByIdAndToken(_id: string, token: string): Promise<User & {
+        _id: any;
+    }>;
+    FindById(_id: string, session: mongoose.ClientSession): Promise<User & {
+        _id: any;
+    }>;
     GenerateRefreshAuthToken(user: User): Promise<string>;
     GenerateAccessAuthToken(user: User): Promise<string>;
     EncodePassword(user: User): Promise<string>;
 }
-export {};

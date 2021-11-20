@@ -25,7 +25,7 @@ let VerifyPublicApiToken = class VerifyPublicApiToken {
     }
 };
 VerifyPublicApiToken = __decorate([
-    common_1.Injectable(),
+    (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [])
 ], VerifyPublicApiToken);
 exports.VerifyPublicApiToken = VerifyPublicApiToken;

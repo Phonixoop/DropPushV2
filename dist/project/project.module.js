@@ -22,7 +22,7 @@ let ProjectModule = class ProjectModule {
     }
 };
 ProjectModule = __decorate([
-    common_1.Module({
+    (0, common_1.Module)({
         imports: [
             user_module_1.UserModule,
             platform_module_1.PlatformModule,

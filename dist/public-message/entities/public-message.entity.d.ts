@@ -10,4 +10,4 @@ export declare class PublicMessage extends Document {
     createdAt: Date;
     updatedAt: Date;
 }
-export declare const PublicMessageEntitySchema: import("mongoose").Schema<PublicMessage, Model<any, any, any>, undefined>;
+export declare const PublicMessageEntitySchema: import("mongoose").Schema<PublicMessage, Model<PublicMessage, any, any, any>, {}>;

@@ -10,4 +10,4 @@ export declare class Message extends Document {
     createdAt: Date;
     updatedAt: Date;
 }
-export declare const MessageEntitySchema: import("mongoose").Schema<Message, Model<any, any, any>, undefined>;
+export declare const MessageEntitySchema: import("mongoose").Schema<Message, Model<Message, any, any, any>, {}>;

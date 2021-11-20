@@ -15,6 +15,7 @@ const environment_1 = require("../environments/environment");
 const user_service_1 = require("../user/user.service");
 const jwt = require('jsonwebtoken');
 let VerifyAccessTokenMID = class VerifyAccessTokenMID {
+    userService;
     constructor(userService) {
         this.userService = userService;
     }
@@ -32,7 +33,7 @@ let VerifyAccessTokenMID = class VerifyAccessTokenMID {
     }
 };
 VerifyAccessTokenMID = __decorate([
-    common_1.Injectable(),
+    (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], VerifyAccessTokenMID);
 exports.VerifyAccessTokenMID = VerifyAccessTokenMID;

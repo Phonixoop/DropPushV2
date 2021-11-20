@@ -4,6 +4,10 @@ exports.Cryption = void 0;
 const crypto = require('crypto');
 require('dotenv').config();
 class Cryption {
+    static algorithm = 'aes-256-ctr';
+    static key = process.env.CRYPTION_SECRET_KEY || '*/HU*';
+    static secretKey = '';
+    static iv = crypto.randomBytes(16);
     static encrypt(content, key) {
         return new Promise((resolve, reject) => {
             try {
@@ -71,8 +75,4 @@ class Cryption {
     }
 }
 exports.Cryption = Cryption;
-Cryption.algorithm = 'aes-256-ctr';
-Cryption.key = process.env.CRYPTION_SECRET_KEY || '*/HU*';
-Cryption.secretKey = '';
-Cryption.iv = crypto.randomBytes(16);
 //# sourceMappingURL=crypt.js.map

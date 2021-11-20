@@ -22,10 +22,10 @@ let MessageModule = class MessageModule {
     }
 };
 MessageModule = __decorate([
-    common_1.Module({
+    (0, common_1.Module)({
         imports: [
             user_module_1.UserModule,
-            common_2.forwardRef(() => socket_module_1.SocketModule),
+            (0, common_2.forwardRef)(() => socket_module_1.SocketModule),
             mongoose_1.MongooseModule.forFeature([
                 { name: message_entity_1.Message.name, schema: message_entity_1.MessageEntitySchema },
             ]),

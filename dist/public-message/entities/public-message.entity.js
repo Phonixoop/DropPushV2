@@ -15,45 +15,54 @@ const mongoose_2 = require("mongoose");
 const environment_1 = require("../../environments/environment");
 const project_entity_1 = require("../../project/entities/project.entity");
 let PublicMessage = class PublicMessage extends mongoose_2.Document {
+    title;
+    iconUrl;
+    message;
+    platformType;
+    expireDate;
+    messageId;
+    VipUser;
+    createdAt;
+    updatedAt;
 };
 __decorate([
-    mongoose_1.Prop({ required: true }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], PublicMessage.prototype, "title", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], PublicMessage.prototype, "iconUrl", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], PublicMessage.prototype, "message", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true, default: 'android' }),
+    (0, mongoose_1.Prop)({ required: true, default: 'android' }),
     __metadata("design:type", String)
 ], PublicMessage.prototype, "platformType", void 0);
 __decorate([
-    mongoose_1.Prop({ required: false }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Date)
 ], PublicMessage.prototype, "expireDate", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true, unique: true, index: true }),
+    (0, mongoose_1.Prop)({ required: true, unique: true, index: true }),
     __metadata("design:type", String)
 ], PublicMessage.prototype, "messageId", void 0);
 __decorate([
-    mongoose_1.Prop({ type: mongoose_2.Types.ObjectId, required: false, ref: 'vipusers' }),
+    (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, required: false, ref: 'vipusers' }),
     __metadata("design:type", String)
 ], PublicMessage.prototype, "VipUser", void 0);
 __decorate([
-    mongoose_1.Prop({ default: Date.now }),
+    (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
 ], PublicMessage.prototype, "createdAt", void 0);
 __decorate([
-    mongoose_1.Prop({ default: Date.now }),
+    (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
 ], PublicMessage.prototype, "updatedAt", void 0);
 PublicMessage = __decorate([
-    mongoose_1.Schema({ timestamps: true })
+    (0, mongoose_1.Schema)({ timestamps: true })
 ], PublicMessage);
 exports.PublicMessage = PublicMessage;
 exports.PublicMessageEntitySchema = mongoose_1.SchemaFactory.createForClass(PublicMessage);

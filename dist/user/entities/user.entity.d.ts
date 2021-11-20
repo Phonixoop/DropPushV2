@@ -9,4 +9,4 @@ export declare class User extends Document {
     GenerateRefreshAuthToken(user: User): Promise<string>;
     GenerateAccessAuthToken(user: User): Promise<string>;
 }
-export declare const UserEntitySchema: import("mongoose").Schema<User, Model<any, any, any>, undefined>;
+export declare const UserEntitySchema: import("mongoose").Schema<User, Model<User, any, any, any>, {}>;

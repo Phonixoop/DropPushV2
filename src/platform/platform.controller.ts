@@ -11,7 +11,7 @@ import {
 import { PlatformService } from './platform.service';
 import { CreatePlatformInput } from './dto/create-platform.input';
 import { Response } from 'express';
-import { SocketService } from 'src/socket/socket.service';
+import { SocketAndroidService } from 'src/socket/socket.android.service';
 
 @Controller('api/v1/platform')
 export class PlatformController {

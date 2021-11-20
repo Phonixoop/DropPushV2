@@ -25,6 +25,10 @@ const project_entity_1 = require("./entities/project.entity");
 const Validator = require("class-validator");
 const message_service_1 = require("./../message/message.service");
 let ProjectService = class ProjectService {
+    Project;
+    platformService;
+    messageService;
+    connection;
     constructor(Project, platformService, messageService, connection) {
         this.Project = Project;
         this.platformService = platformService;
@@ -41,14 +45,14 @@ let ProjectService = class ProjectService {
                 const projectInput = new this.Project({
                     ...input,
                     deviceToken: deviceToken,
-                    user: mongoose_3.Types.ObjectId(userId),
+                    user: new mongoose.Types.ObjectId(userId),
                 });
                 const project = await projectInput.save({ session });
                 const platformcreateInput = {
                     appId: input.appId,
                     platformType: input.platformType,
                     project: project._id,
-                    user: mongoose_3.Types.ObjectId(userId),
+                    user: new mongoose.Types.ObjectId(userId),
                 };
                 await this.platformService.create(platformcreateInput, session);
                 await session.commitTransaction();
@@ -68,7 +72,7 @@ let ProjectService = class ProjectService {
     }
     async projects(userId) {
         try {
-            const data = await this.platformService.find(mongoose_3.Types.ObjectId(userId));
+            const data = await this.platformService.find(new mongoose.Types.ObjectId(userId));
             return { status: 200, ok: true, data: data };
         }
         catch {
@@ -79,7 +83,7 @@ let ProjectService = class ProjectService {
         const session = await this.connection.startSession();
         try {
             session.startTransaction();
-            const platform = await this.platformService.deleteOnePlatform(mongoose_3.Types.ObjectId(projectId), session);
+            const platform = await this.platformService.deleteOnePlatform(new mongoose.Types.ObjectId(projectId), session);
             const project = await this.Project.deleteOne({ _id: projectId }, { session });
             await this.messageService.DeleteAllMessageByAppId(platform.appId, session);
             await session.commitTransaction();
@@ -100,7 +104,7 @@ let ProjectService = class ProjectService {
         try {
             const deviceToken = await crypt_1.Cryption.encrypt(appId, environment_1.Env.CRYPTION_SECRET_KEY);
             const prj = await this.Project.findOne({
-                _id: mongoose_3.Types.ObjectId(projectId),
+                _id: new mongoose.Types.ObjectId(projectId),
             });
             prj.deviceToken = deviceToken;
             await prj.save();
@@ -115,7 +119,7 @@ let ProjectService = class ProjectService {
             const session = await this.connection.startSession();
             try {
                 session.startTransaction();
-                const id = mongoose_3.Types.ObjectId(projectId);
+                const id = new mongoose.Types.ObjectId(projectId);
                 let project, platform;
                 project = await this.Project.findOne({ _id: id }, null, { session });
                 if (nickName) {
@@ -153,9 +157,9 @@ let ProjectService = class ProjectService {
     }
 };
 ProjectService = __decorate([
-    common_1.Injectable(),
-    __param(0, mongoose_1.InjectModel(project_entity_1.Project.name)),
-    __param(3, mongoose_2.InjectConnection()),
+    (0, common_1.Injectable)(),
+    __param(0, (0, mongoose_1.InjectModel)(project_entity_1.Project.name)),
+    __param(3, (0, mongoose_2.InjectConnection)()),
     __metadata("design:paramtypes", [mongoose_3.Model,
         platform_service_1.PlatformService,
         message_service_1.MessageService, mongoose.Connection])

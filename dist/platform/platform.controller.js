@@ -15,8 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlatformController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_service_1 = require("./platform.service");
-const socket_service_1 = require("../socket/socket.service");
+const socket_android_service_1 = require("../socket/socket.android.service");
 let PlatformController = class PlatformController {
+    platformService;
     constructor(platformService) {
         this.platformService = platformService;
     }
@@ -44,23 +45,23 @@ let PlatformController = class PlatformController {
     }
 };
 __decorate([
-    common_1.Post('checkAppId'),
-    __param(0, common_1.Body()),
-    __param(1, common_1.Res()),
+    (0, common_1.Post)('checkAppId'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], PlatformController.prototype, "checkAppId", null);
 __decorate([
-    common_1.Post('onlineUsers'),
-    __param(0, common_1.Body()),
-    __param(1, common_1.Res()),
+    (0, common_1.Post)('onlineUsers'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], PlatformController.prototype, "checkOnlineUsers", null);
 PlatformController = __decorate([
-    common_1.Controller('api/v1/platform'),
+    (0, common_1.Controller)('api/v1/platform'),
     __metadata("design:paramtypes", [platform_service_1.PlatformService])
 ], PlatformController);
 exports.PlatformController = PlatformController;

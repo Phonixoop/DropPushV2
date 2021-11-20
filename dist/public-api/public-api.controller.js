@@ -18,6 +18,7 @@ const public_api_service_1 = require("./public-api.service");
 const create_public_api_input_1 = require("./dto/create-public-api.input");
 var cors = require('cors');
 let PublicApiController = class PublicApiController {
+    publicApiService;
     constructor(publicApiService) {
         this.publicApiService = publicApiService;
     }
@@ -36,17 +37,17 @@ let PublicApiController = class PublicApiController {
     }
 };
 __decorate([
-    common_1.Get(''),
-    __param(0, common_1.Query('token')),
-    __param(1, common_1.Query()),
-    __param(2, common_1.Res()),
-    __param(3, common_1.Req()),
+    (0, common_1.Get)(''),
+    __param(0, (0, common_1.Query)('token')),
+    __param(1, (0, common_1.Query)()),
+    __param(2, (0, common_1.Res)()),
+    __param(3, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, create_public_api_input_1.CreatePublicApiInput, Object, Object]),
     __metadata("design:returntype", Promise)
 ], PublicApiController.prototype, "PushMessage", null);
 PublicApiController = __decorate([
-    common_1.Controller('api/v1/push'),
+    (0, common_1.Controller)('api/v1/push'),
     __metadata("design:paramtypes", [public_api_service_1.PublicApiService])
 ], PublicApiController);
 exports.PublicApiController = PublicApiController;

@@ -12,19 +12,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoginUserInput = void 0;
 const class_validator_1 = require("class-validator");
 class LoginUserInput {
+    email;
+    password;
 }
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(5),
-    class_validator_1.MaxLength(255),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(5),
+    (0, class_validator_1.MaxLength)(255),
     __metadata("design:type", String)
 ], LoginUserInput.prototype, "email", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(5),
-    class_validator_1.MaxLength(255),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(5),
+    (0, class_validator_1.MaxLength)(255),
     __metadata("design:type", String)
 ], LoginUserInput.prototype, "password", void 0);
 exports.LoginUserInput = LoginUserInput;

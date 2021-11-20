@@ -4,6 +4,9 @@ exports.CryptionLight = void 0;
 const crypto = require('crypto');
 require('dotenv').config();
 class CryptionLight {
+    static algorithm = 'aes-256-ctr';
+    static secretKey = 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3';
+    static iv = crypto.randomBytes(16);
     static encrypt(text) {
         const cipher = crypto.createCipheriv(this.algorithm, this.secretKey, this.iv);
         const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
@@ -22,7 +25,4 @@ class CryptionLight {
     }
 }
 exports.CryptionLight = CryptionLight;
-CryptionLight.algorithm = 'aes-256-ctr';
-CryptionLight.secretKey = 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3';
-CryptionLight.iv = crypto.randomBytes(16);
 //# sourceMappingURL=crypt.light.js.map

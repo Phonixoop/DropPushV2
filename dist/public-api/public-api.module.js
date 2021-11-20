@@ -15,7 +15,7 @@ const public_message_module_1 = require("../public-message/public-message.module
 let PublicApiModule = class PublicApiModule {
 };
 PublicApiModule = __decorate([
-    common_1.Module({
+    (0, common_1.Module)({
         imports: [public_message_module_1.PublicMessageModule],
         controllers: [public_api_controller_1.PublicApiController],
         providers: [public_api_service_1.PublicApiService],

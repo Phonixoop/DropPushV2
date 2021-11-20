@@ -13,9 +13,15 @@ exports.PlatformEntitySchema = exports.Platform = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let Platform = class Platform extends mongoose_2.Document {
+    appId;
+    platformType;
+    user;
+    project;
+    createdAt;
+    updatedAt;
 };
 __decorate([
-    mongoose_1.Prop({
+    (0, mongoose_1.Prop)({
         required: true,
         unique: true,
         match: /^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i,
@@ -23,27 +29,27 @@ __decorate([
     __metadata("design:type", String)
 ], Platform.prototype, "appId", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true, unique: false }),
+    (0, mongoose_1.Prop)({ required: true, unique: false }),
     __metadata("design:type", String)
 ], Platform.prototype, "platformType", void 0);
 __decorate([
-    mongoose_1.Prop({ type: mongoose_2.Types.ObjectId, required: true, ref: 'users' }),
+    (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, required: true, ref: 'users' }),
     __metadata("design:type", mongoose_2.Types.ObjectId)
 ], Platform.prototype, "user", void 0);
 __decorate([
-    mongoose_1.Prop({ type: mongoose_2.Types.ObjectId, required: true, unique: true, ref: 'projects' }),
+    (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, required: true, unique: true, ref: 'projects' }),
     __metadata("design:type", mongoose_2.Types.ObjectId)
 ], Platform.prototype, "project", void 0);
 __decorate([
-    mongoose_1.Prop({ default: Date.now }),
+    (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
 ], Platform.prototype, "createdAt", void 0);
 __decorate([
-    mongoose_1.Prop({ default: Date.now }),
+    (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
 ], Platform.prototype, "updatedAt", void 0);
 Platform = __decorate([
-    mongoose_1.Schema({ timestamps: true })
+    (0, mongoose_1.Schema)({ timestamps: true })
 ], Platform);
 exports.Platform = Platform;
 exports.PlatformEntitySchema = mongoose_1.SchemaFactory.createForClass(Platform);

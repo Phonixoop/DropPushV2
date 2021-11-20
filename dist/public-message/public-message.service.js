@@ -18,9 +18,11 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const public_message_entity_1 = require("./entities/public-message.entity");
 const uuid_1 = require("uuid");
-const socket_service_1 = require("../socket/socket.service");
+const socket_android_service_1 = require("../socket/socket.android.service");
 const common_2 = require("@nestjs/common");
 let PublicMessageService = class PublicMessageService {
+    PublicMessage;
+    socketService;
     constructor(PublicMessage, socketService) {
         this.PublicMessage = PublicMessage;
         this.socketService = socketService;
@@ -33,7 +35,7 @@ let PublicMessageService = class PublicMessageService {
                 msg.title = input.title;
                 msg.iconUrl = input.iconUrl;
                 msg.message = input.message;
-                msg.messageId = uuid_1.v4();
+                msg.messageId = (0, uuid_1.v4)();
                 await msg.save();
                 payload = {
                     title: msg.title,
@@ -47,7 +49,7 @@ let PublicMessageService = class PublicMessageService {
                     title: input.title,
                     iconUrl: input.iconUrl,
                     message: input.message,
-                    messageId: uuid_1.v4(),
+                    messageId: (0, uuid_1.v4)(),
                 };
                 await (await this.PublicMessage.create(payload)).save();
             }
@@ -60,11 +62,11 @@ let PublicMessageService = class PublicMessageService {
     }
 };
 PublicMessageService = __decorate([
-    common_1.Injectable(),
-    __param(0, mongoose_1.InjectModel(public_message_entity_1.PublicMessage.name)),
-    __param(1, common_1.Inject(common_2.forwardRef(() => socket_service_1.SocketService))),
+    (0, common_1.Injectable)(),
+    __param(0, (0, mongoose_1.InjectModel)(public_message_entity_1.PublicMessage.name)),
+    __param(1, (0, common_1.Inject)((0, common_2.forwardRef)(() => socket_android_service_1.SocketAndroidService))),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        socket_service_1.SocketService])
+        socket_android_service_1.SocketAndroidService])
 ], PublicMessageService);
 exports.PublicMessageService = PublicMessageService;
 //# sourceMappingURL=public-message.service.js.map

@@ -15,6 +15,7 @@ const environment_1 = require("../environments/environment");
 const user_service_1 = require("../user/user.service");
 const jwt = require('jsonwebtoken');
 let VerifyCookieTokenMID = class VerifyCookieTokenMID {
+    userService;
     constructor(userService) {
         this.userService = userService;
     }
@@ -49,7 +50,7 @@ let VerifyCookieTokenMID = class VerifyCookieTokenMID {
     }
 };
 VerifyCookieTokenMID = __decorate([
-    common_1.Injectable(),
+    (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], VerifyCookieTokenMID);
 exports.VerifyCookieTokenMID = VerifyCookieTokenMID;
